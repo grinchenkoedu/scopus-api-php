@@ -70,8 +70,8 @@ foreach ($results->getEntries() as $entry) {
 
 ## API Docs
 
-Official API documentation for the previous fork version:
-[https://kasparsj.github.io/scopus-api-php/](https://kasparsj.github.io/scopus-api-php/)
+Official API documentation:
+[https://grinchenkoedu.github.io/scopus-api-php/](https://grinchenkoedu.github.io/scopus-api-php/)
 
 ## Changelog
 
