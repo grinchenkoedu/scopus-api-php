@@ -21,7 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added institution token support.
 
 ### Changed
-- Updated `GuzzleHttp` to the latest version (7.6).
+- Updated `guzzlehttp/guzzle` to the latest version (7.6).
+- Restored `retrieve` and `query` methods back to `public` visibility.
 
 ## [1.3.0] - 2022-05-01
 
@@ -30,15 +31,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.0] - 2021-11-14
 
+### Added
+- Added `hasError` method for better error handling.
+
+### Changed
+- Bumped `guzzlehttp/guzzle` version constraint to `>=6.3`.
+
 ### Fixed
-- General bug fixes.
+- Fixed year parsing in the `getYear` method.
 
 ## [1.1.0] - 2020-05-19
 
 ### Added
 - Added Search Author API.
-- Added Citation Overview API.
+- Added Citation Overview API (including fetching multiple documents).
+- Added `openaccessFlag` to the `Entry` class.
 - Created a support function to retrieve documents of a specific author easily.
+- Generated initial API documentation using ApiGen.
 
 ### Changed
-- Updated various classes for better compatibility.
+- Updated various classes (`AbstractCitations`, `Source`, etc.) for better compatibility.
