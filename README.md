@@ -13,7 +13,7 @@ Currently, supported APIs:
 
 ## Installation
 
-`composer require kasparsj/scopus-search-api` 
+`composer require grinchenkoedu/scopus-search-api` 
 
 ## Usage:
 
@@ -60,15 +60,5 @@ foreach ($results->getEntries() as $entry) {
 https://kasparsj.github.io/scopus-api-php/
 
 ## Changelog
-- 14/06/2023 - v1.4
-  * Added institution token support
-  * Updated GuzzleHttp to the latest version (7.6)
-- 01/05/2022 - v1.3
-  * Added Abstract Citations Count API
-- 14/11/2021 - v1.2
-  * Bug fix
-- 19/05/2020 - v1.1
-  * Added Search Author API
-  * Added Citation Overview API
-  * Created a support function to retrieve Document of specific Author easly
-  * Updated classes
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
