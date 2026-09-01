@@ -57,10 +57,16 @@ class ScopusApi
             $contentType = $response->getHeader('Content-Type');
             if ($contentType && strpos(strtolower($contentType[0]), '/xml') !== false) {
                 $internalErrors = libxml_use_internal_errors(true);
-                libxml_clear_errors();
+                $pendingErrors = count(libxml_get_errors());
                 $xml = simplexml_load_string($body, "SimpleXMLElement", LIBXML_NOCDATA);
-                $error = libxml_get_last_error();
-                libxml_clear_errors();
+
+                $errors = libxml_get_errors();
+                $error = count($errors) > $pendingErrors ? end($errors) : null;
+
+                if (!$internalErrors) {
+                    // The caller was not collecting libxml errors, so the buffer is ours to clear.
+                    libxml_clear_errors();
+                }
                 libxml_use_internal_errors($internalErrors);
 
                 if ($xml === false) {
