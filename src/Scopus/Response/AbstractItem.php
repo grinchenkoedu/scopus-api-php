@@ -17,6 +17,8 @@ class AbstractItem
 
     public function getBibrecord()
     {
-        return $this->bibrecord ?: $this->bibrecord = new Bibrecord($this->data['bibrecord']);
+        if (isset($this->data['bibrecord'])) {
+            return $this->bibrecord ?: $this->bibrecord = new Bibrecord($this->data['bibrecord']);
+        }
     }
 }

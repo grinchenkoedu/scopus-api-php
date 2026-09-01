@@ -19,6 +19,6 @@ abstract class TestCase extends BaseTestCase
         $mock = new MockHandler($mockResponses);
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
-        return new ScopusApi('dummy-key', 30, $client);
+        return new ScopusApi($client);
     }
 }

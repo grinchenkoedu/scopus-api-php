@@ -56,4 +56,21 @@ class AbstractsTest extends TestCase
         $authorGroup = $abstract->getItem()->getBibrecord()->getHead()->getAuthorGroup();
         $this->assertInstanceOf(AuthorGroup::class, $authorGroup);
     }
+
+    public function testAbstractsGettersWithSparseData()
+    {
+        $mockData = [
+            'coredata' => [],
+            'item' => []
+        ];
+
+        $abstract = new Abstracts($mockData);
+        
+        $this->assertInstanceOf(AbstractCoredata::class, $abstract->getCoredata());
+        $this->assertNull($abstract->getCoredata()->getTitle());
+        $this->assertNull($abstract->getCoredata()->getIdentifier());
+        
+        $this->assertNull($abstract->getAuthors());
+        $this->assertNull($abstract->getItem()->getBibrecord());
+    }
 }
