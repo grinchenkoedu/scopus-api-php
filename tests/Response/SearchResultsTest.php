@@ -2,7 +2,7 @@
 
 namespace Scopus\Tests\Response;
 
-use PHPUnit\Framework\TestCase;
+use Scopus\Tests\TestCase;
 use Scopus\Response\SearchResults;
 use Scopus\Response\Entry;
 

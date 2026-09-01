@@ -2,9 +2,8 @@
 
 namespace Scopus\Tests\Util;
 
-use PHPUnit\Framework\TestCase;
+use Scopus\Tests\TestCase;
 use Scopus\Util\XmlUtil;
-use Scopus\Exception\XmlException;
 
 class XmlUtilTest extends TestCase
 {

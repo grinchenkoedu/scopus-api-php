@@ -2,7 +2,6 @@
 
 namespace Scopus\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Scopus\ScopusApiFactory;
 use Scopus\ScopusApi;
 
