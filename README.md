@@ -79,7 +79,7 @@ See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
 
 ## Contributors
 
-[Kaspars Jaudzems](https://github.com/kasparsj) and many others:
+Thanks to all the contributors who have helped build and maintain this package:
 
 ![Contributors](https://contrib.rocks/image?repo=grinchenkoedu/scopus-api-php)
 
