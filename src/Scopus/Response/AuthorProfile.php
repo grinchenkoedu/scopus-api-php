@@ -80,6 +80,10 @@ class AuthorProfile
 
     public function getAffiliationCurrent()
     {
+        if (!isset($this->data['affiliation-current']['affiliation'])) {
+            return null;
+        }
+
         $affiliation = (array_key_exists(0, $this->data['affiliation-current']['affiliation'])) ? $this->data['affiliation-current']['affiliation'][0] : $this->data['affiliation-current']['affiliation'];
         return $this->affiliationCurrent ?: $this->affiliationCurrent = new AuthorAffiliation($affiliation);
     }
