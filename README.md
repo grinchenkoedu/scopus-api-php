@@ -1,11 +1,11 @@
-# Scopus API for PHP (Unofficial)
+# Scopus API for PHP
 
 [![Latest Stable Version](https://poser.pugx.org/grinchenkoedu/scopus-search-api/v/stable)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
 [![License](https://poser.pugx.org/grinchenkoedu/scopus-search-api/license)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
 [![PHP Version Require](https://poser.pugx.org/grinchenkoedu/scopus-search-api/require/php)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
 [![CI Tests](https://github.com/grinchenkoedu/scopus-api-php/actions/workflows/ci.yml/badge.svg)](https://github.com/grinchenkoedu/scopus-api-php/actions/workflows/ci.yml)
 
-PHP SDK for [Scopus APIs](https://dev.elsevier.com/scopus.html).
+A third party PHP SDK for [Scopus APIs](https://dev.elsevier.com/scopus.html).
 
 Currently supported APIs:
 - Scopus Search API
