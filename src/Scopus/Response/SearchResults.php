@@ -20,31 +20,35 @@ class SearchResults
 
     public function getTotalResults()
     {
-        return $this->data['opensearch:totalResults'];
+        return isset($this->data['opensearch:totalResults']) ? $this->data['opensearch:totalResults'] : null;
     }
 
     public function getStartIndex()
     {
-        return $this->data['opensearch:startIndex'];
+        return isset($this->data['opensearch:startIndex']) ? $this->data['opensearch:startIndex'] : null;
     }
 
     public function getItemsPerPage()
     {
-        return $this->data['opensearch:itemsPerPage'];
+        return isset($this->data['opensearch:itemsPerPage']) ? $this->data['opensearch:itemsPerPage'] : null;
     }
 
     public function getQuery()
     {
-        return $this->data['opensearch:Query'];
+        return isset($this->data['opensearch:Query']) ? $this->data['opensearch:Query'] : null;
     }
 
     public function getNextCursor()
     {
-        return $this->data['cursor']['@next'];
+        return isset($this->data['cursor']['@next']) ? $this->data['cursor']['@next'] : null;
     }
 
     public function getLinks()
     {
+        if (!isset($this->data['link'])) {
+            return null;
+        }
+
         return $this->links ?: $this->links = new SearchLinks($this->data['link']);
     }
 

@@ -1,9 +1,9 @@
 # Scopus API for PHP
 
-[![Latest Stable Version](https://poser.pugx.org/grinchenkoedu/scopus-search-api/v/stable)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
-[![License](https://poser.pugx.org/grinchenkoedu/scopus-search-api/license)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
-[![PHP Version Require](https://poser.pugx.org/grinchenkoedu/scopus-search-api/require/php)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
-[![CI Tests](https://github.com/grinchenkoedu/scopus-api-php/actions/workflows/ci.yml/badge.svg)](https://github.com/grinchenkoedu/scopus-api-php/actions/workflows/ci.yml)
+[![CI](https://github.com/grinchenkoedu/scopus-api-php/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/grinchenkoedu/scopus-api-php/actions/workflows/ci.yml)
+[![Latest Stable Version](https://img.shields.io/packagist/v/grinchenkoedu/scopus-search-api)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
+[![PHP Version Require](https://img.shields.io/packagist/php-v/grinchenkoedu/scopus-search-api)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
+[![License](https://img.shields.io/packagist/l/grinchenkoedu/scopus-search-api)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
 
 A third party PHP SDK for [Scopus APIs](https://dev.elsevier.com/scopus.html).
 
@@ -36,7 +36,7 @@ use Scopus\ScopusApi;
 use Scopus\ScopusApiFactory;
 
 // replace with your API key
-$apiKey = "114ff0c3b57a0ec62e15efdedefd2e6f";
+$apiKey = "your-api-key-here";
 $api = (new ScopusApiFactory($apiKey))->createApiClient();
 
 // Scopus Search API
@@ -73,6 +73,24 @@ foreach ($results->getEntries() as $entry) {
 
 Official API documentation:
 [https://grinchenkoedu.github.io/scopus-api-php/](https://grinchenkoedu.github.io/scopus-api-php/)
+
+## Development
+
+Install the development dependencies and run the test suite:
+
+```bash
+composer install
+vendor/bin/phpunit
+```
+
+Coverage is not configured in `phpunit.xml.dist`, because the source filter is
+spelled differently in PHPUnit 9 and PHPUnit 10+ and this package supports both.
+Request it on the command line instead:
+
+```bash
+vendor/bin/phpunit --coverage-text --coverage-filter src   # PHPUnit 10 and 11
+vendor/bin/phpunit --coverage-text --whitelist src         # PHPUnit 8.5 and 9
+```
 
 ## Changelog
 

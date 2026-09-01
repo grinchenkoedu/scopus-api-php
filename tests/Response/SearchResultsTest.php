@@ -2,7 +2,7 @@
 
 namespace Scopus\Tests\Response;
 
-use PHPUnit\Framework\TestCase;
+use Scopus\Tests\TestCase;
 use Scopus\Response\SearchResults;
 use Scopus\Response\Entry;
 
@@ -55,5 +55,34 @@ class SearchResultsTest extends TestCase
         $this->assertEquals('Journal of Samples', $entries[0]->getPublicationName());
         
         $this->assertEquals(2, $results->countEntries());
+    }
+
+    public function testSearchResultsGettersWithSparseData()
+    {
+        $results = new SearchResults([]);
+
+        $this->assertNull($results->getTotalResults());
+        $this->assertNull($results->getStartIndex());
+        $this->assertNull($results->getItemsPerPage());
+        $this->assertNull($results->getQuery());
+        $this->assertNull($results->getNextCursor());
+        $this->assertNull($results->getLinks());
+        $this->assertNull($results->getEntries());
+        $this->assertEquals(0, $results->countEntries());
+    }
+
+    public function testEntryGettersWithSparseData()
+    {
+        $results = new SearchResults(['entry' => [[]]]);
+
+        $entry = $results->getEntries()[0];
+        $this->assertInstanceOf(Entry::class, $entry);
+        $this->assertNull($entry->getTitle());
+        $this->assertNull($entry->getCreator());
+        $this->assertNull($entry->getAuthkeywords());
+        $this->assertNull($entry->getLinks());
+        $this->assertNull($entry->getAuthors());
+        $this->assertNull($entry->getAffiliations());
+        $this->assertEquals(0, $entry->countAuthors());
     }
 }

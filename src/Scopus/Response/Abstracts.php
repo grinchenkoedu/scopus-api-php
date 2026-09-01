@@ -23,6 +23,10 @@ class Abstracts implements IAbstract
     
     public function getCoredata()
     {
+        if (!isset($this->data['coredata'])) {
+            return null;
+        }
+
         return $this->coredata ?: $this->coredata = new AbstractCoredata($this->data['coredata']);
     }
 
@@ -48,6 +52,10 @@ class Abstracts implements IAbstract
     
     public function getItem()
     {
+        if (!isset($this->data['item'])) {
+            return null;
+        }
+
         return $this->item ?: $this->item = new AbstractItem($this->data['item']);
     }
 }

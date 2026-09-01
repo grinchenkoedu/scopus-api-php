@@ -14,7 +14,7 @@ class AbstractCoredata
 
     public function getUrl()
     {
-        return $this->data['prism:url'];
+        return isset($this->data['prism:url']) ? $this->data['prism:url'] : null;
     }
 
     public function getIdentifier()
@@ -47,12 +47,12 @@ class AbstractCoredata
 
     public function getEIssn()
     {
-        return $this->data['prism:eIssn'];
+        return isset($this->data['prism:eIssn']) ? $this->data['prism:eIssn'] : null;
     }
 
     public function getVolume()
     {
-        return $this->data['prism:volume'];
+        return isset($this->data['prism:volume']) ? $this->data['prism:volume'] : null;
     }
 
     public function getPageRange()
@@ -82,7 +82,7 @@ class AbstractCoredata
 
     public function getDescription()
     {
-        return $this->data['dc:description'];
+        return isset($this->data['dc:description']) ? $this->data['dc:description'] : null;
     }
 
     public function getCitedbyCount()
@@ -93,7 +93,7 @@ class AbstractCoredata
 
     public function getAggregationType()
     {
-        return $this->data['prism:aggregationType'];
+        return isset($this->data['prism:aggregationType']) ? $this->data['prism:aggregationType'] : null;
     }
 
     public function getFundSponsor()
@@ -122,7 +122,7 @@ class AbstractCoredata
 
     public function getIssn()
     {
-        return $this->data['prism:issn'];
+        return isset($this->data['prism:issn']) ? $this->data['prism:issn'] : null;
     }
 
     public function hasError()

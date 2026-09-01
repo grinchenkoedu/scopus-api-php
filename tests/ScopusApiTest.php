@@ -69,7 +69,21 @@ class ScopusApiTest extends TestCase
         $this->assertInstanceOf(CitationCount::class, $results[0]);
         $this->assertEquals("123", $results[0]->getIdentifier());
         $this->assertEquals("5", $results[0]->getCitationCount());
-        $this->assertEquals("found", $results[0]->getStatus());
+        // getStatus() declares ': bool', so the "found" string is coerced.
+        // It cannot currently tell "found" from "NOT_FOUND" - both are true.
+        $this->assertTrue($results[0]->getStatus());
+    }
+
+    public function testCitationCountWithoutStatus()
+    {
+        // retrieve() uses @status to tell a single document from a list, so a
+        // document reaching CitationCount through the client always has it.
+        // Constructing one directly is how a caller hits the missing-key path.
+        $citationCount = new CitationCount(['dc:identifier' => '123']);
+
+        $this->assertFalse($citationCount->getStatus());
+        $this->assertNull($citationCount->getCitationCount());
+        $this->assertNull($citationCount->getLinks());
     }
 
     public function testSearchAuthorsSuccessful()
@@ -152,6 +166,50 @@ class ScopusApiTest extends TestCase
         
         $this->expectException(\Scopus\Exception\XmlException::class);
         $api->retrieveCitationCount(['123']);
+    }
+
+    public function testXmlExceptionWithoutLibxmlError()
+    {
+        // An empty body makes simplexml_load_string() return false without
+        // recording a libxml error, so there is nothing to read a message from.
+        $api = $this->getMockedApi([
+            new Response(200, ['Content-Type' => 'text/xml'], '')
+        ]);
+
+        $this->expectException(\Scopus\Exception\XmlException::class);
+        $this->expectExceptionMessage('Unknown XML parsing error');
+
+        $api->retrieveCitationCount(['123']);
+    }
+
+    public function testXmlParsingLeavesTheCallersLibxmlErrorsAlone()
+    {
+        $previous = libxml_use_internal_errors(true);
+        libxml_clear_errors();
+        simplexml_load_string('<caller>');
+        $callerMessages = $this->libxmlMessages();
+        $this->assertNotEmpty($callerMessages);
+
+        try {
+            $this->getMockedApi([new Response(200, ['Content-Type' => 'text/xml'], '<broken>')])
+                ->retrieveCitationCount(['123']);
+        } catch (\Scopus\Exception\XmlException $e) {
+            // expected
+        }
+
+        // The caller's errors must still be there, in order, ahead of ours.
+        $after = $this->libxmlMessages();
+        $this->assertSame($callerMessages, array_slice($after, 0, count($callerMessages)));
+
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous);
+    }
+
+    private function libxmlMessages()
+    {
+        return array_map(function ($error) {
+            return $error->message;
+        }, libxml_get_errors());
     }
 
     public function testJsonException()

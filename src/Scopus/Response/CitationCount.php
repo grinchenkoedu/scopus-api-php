@@ -24,12 +24,12 @@ class CitationCount
 
     public function getStatus(): bool
     {
-        return $this->data['@status'];
+        return isset($this->data['@status']) ? (bool) $this->data['@status'] : false;
     }
 
     public function getIdentifier()
     {
-        return $this->data['dc:identifier'];
+        return isset($this->data['dc:identifier']) ? $this->data['dc:identifier'] : null;
     }
 
     public function getUrl()
@@ -69,6 +69,10 @@ class CitationCount
 
     public function getLinks()
     {
+        if (!isset($this->data['link'])) {
+            return null;
+        }
+
         return $this->links ?: $this->links = new CitationCountLinks($this->data['link']);
     }
 }

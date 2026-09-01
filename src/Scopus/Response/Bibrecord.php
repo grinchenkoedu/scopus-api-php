@@ -17,6 +17,10 @@ class Bibrecord
 
     public function getHead()
     {
+        if (!isset($this->data['head'])) {
+            return null;
+        }
+
         return $this->head ?: $this->head = new BibrecordHead($this->data['head']);
     }
 }

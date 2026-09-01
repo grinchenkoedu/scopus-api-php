@@ -13,21 +13,21 @@ class EntryAuthor extends AuthorName implements IAuthor
     
     public function getId()
     {
-        return $this->data['authid'];
+        return isset($this->data['authid']) ? $this->data['authid'] : null;
     }
     
     public function getName()
     {
-        return $this->data['authname'];
+        return isset($this->data['authname']) ? $this->data['authname'] : null;
     }
     
     public function getAffiliationId()
     {
-        return $this->data['afid'][0]['$'];
+        return isset($this->data['afid'][0]['$']) ? $this->data['afid'][0]['$'] : null;
     }
     
     public function getUrl()
     {
-        return $this->data['author-url'];
+        return isset($this->data['author-url']) ? $this->data['author-url'] : null;
     }
 }

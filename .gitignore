@@ -4,3 +4,4 @@ composer-test.lock
 vendor/
 .idea
 .tasks/
+.claude/

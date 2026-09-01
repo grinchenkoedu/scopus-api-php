@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- PHPUnit test suite covering the API client, the query builder, the response DTOs and the XML
+  utility, using Guzzle's `MockHandler` so no test touches the network.
+- GitHub Actions CI running the suite on PHP 7.2 through 8.5.
+- `.gitattributes`, so the distributed package no longer ships `docs/`, `tests/` and the CI config.
+
+### Fixed
+- `XmlUtil::toArray()` no longer calls `each()`, which was removed in PHP 8.
+- XML parse failures no longer emit raw PHP warnings, and no longer crash when
+  `libxml_get_last_error()` returns `false`.
+- Getters in `Scopus\Response` return `null` for a missing key instead of raising
+  `Undefined array key`; Scopus routinely omits fields.
+- Nullable parameters are declared explicitly, clearing the PHP 8.4 deprecation.
+
 ## [1.4.1] - 2026-09-01
 
 ### Changed

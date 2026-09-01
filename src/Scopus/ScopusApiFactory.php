@@ -12,7 +12,7 @@ class ScopusApiFactory
     private $institutionToken;
     private $timeout;
 
-    public function __construct(string $apiKey, string $institutionToken = null, int $timeout = self::TIMEOUT_DEFAULT)
+    public function __construct(string $apiKey, ?string $institutionToken = null, int $timeout = self::TIMEOUT_DEFAULT)
     {
         $this->apiKey = $apiKey;
         $this->institutionToken = $institutionToken;
