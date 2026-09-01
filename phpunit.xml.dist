@@ -3,7 +3,8 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          cacheResult="false"
-         colors="true">
+         colors="true"
+         failOnWarning="true">
     <!--
         Deliberately free of coverage configuration: the source filter is spelled
         <coverage> in PHPUnit 9 and <source> in PHPUnit 10+, and require-dev spans
