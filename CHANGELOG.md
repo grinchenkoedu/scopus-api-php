@@ -1,19 +1,44 @@
 # Changelog
 
-- 01/09/2026 - v1.4.1 (Unreleased)
-  * Prepared for Packagist (updated package name to grinchenkoedu/scopus-search-api)
-  * Fixed SSRF vulnerability by updating GuzzleHttp requirement to ^7.15.2 || ^8.0.1
-  * Added Yevhen Matasar to authors
-  * Upgraded autoloading to PSR-4
-- 14/06/2023 - v1.4
-  * Added institution token support
-  * Updated GuzzleHttp to the latest version (7.6)
-- 01/05/2022 - v1.3
-  * Added Abstract Citations Count API
-- 14/11/2021 - v1.2
-  * Bug fix
-- 19/05/2020 - v1.1
-  * Added Search Author API
-  * Added Citation Overview API
-  * Created a support function to retrieve Document of specific Author easly
-  * Updated classes
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Changed
+- Prepared for Packagist: updated package name to `grinchenkoedu/scopus-search-api`.
+- Added Yevhen Matasar to the authors list.
+- Upgraded Composer autoloading to PSR-4.
+
+### Security
+- Fixed SSRF vulnerability by updating the `guzzlehttp/guzzle` requirement to `^7.15.2 || ^8.0.1`.
+
+## [1.4.0] - 2023-06-14
+
+### Added
+- Added institution token support.
+
+### Changed
+- Updated `GuzzleHttp` to the latest version (7.6).
+
+## [1.3.0] - 2022-05-01
+
+### Added
+- Added Abstract Citations Count API.
+
+## [1.2.0] - 2021-11-14
+
+### Fixed
+- General bug fixes.
+
+## [1.1.0] - 2020-05-19
+
+### Added
+- Added Search Author API.
+- Added Citation Overview API.
+- Created a support function to retrieve documents of a specific author easily.
+
+### Changed
+- Updated various classes for better compatibility.
