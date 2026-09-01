@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.5.0] - 2026-09-02
 
 ### Added
 - PHPUnit test suite covering the API client, the query builder, the response DTOs and the XML
@@ -14,10 +14,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `.gitattributes`, so the distributed package no longer ships `docs/`, `tests/` and the CI config.
 
 ### Changed
-- **Breaking:** the minimum PHP version is now 7.4, up from 7.2, and the constraint is bounded at
+- The minimum PHP version is now 7.4, up from 7.2, and the constraint is bounded at
   `^7.4 || ^8.0`. PHP 7.2 and 7.3 reached end of life in November 2020 and December 2021.
   Supporting them forced `require-dev` to span PHPUnit 8.5 to 11 and split the dependency graph
-  across two Guzzle majors. Requires a major version bump on release.
+  across two Guzzle majors. No public API changed: projects still on PHP 7.2 or 7.3 keep
+  resolving to 1.4.1 rather than failing to install.
+
+### Removed
+- `docs/`, `tests/` and the CI configuration are no longer part of the distributed package, and
+  the manual `test/test.php` script is gone. Nothing under `vendor/` should have referenced them,
+  but the paths do disappear.
 
 ### Fixed
 - `XmlUtil::toArray()` no longer calls `each()`, which was removed in PHP 8.
@@ -37,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Security
 - Fixed SSRF vulnerability by updating the `guzzlehttp/guzzle` requirement to `^7.15.2 || ^8.0.1`.
 
-## [1.4.0] - 2023-06-14
+## [1.4.0] - 2023-05-14
 
 ### Added
 - Added institution token support.
