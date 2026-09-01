@@ -10,8 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - PHPUnit test suite covering the API client, the query builder, the response DTOs and the XML
   utility, using Guzzle's `MockHandler` so no test touches the network.
-- GitHub Actions CI running the suite on PHP 7.2 through 8.5.
+- GitHub Actions CI running the suite on PHP 7.4 through 8.5.
 - `.gitattributes`, so the distributed package no longer ships `docs/`, `tests/` and the CI config.
+
+### Changed
+- **Breaking:** the minimum PHP version is now 7.4, up from 7.2, and the constraint is bounded at
+  `^7.4 || ^8.0`. PHP 7.2 and 7.3 reached end of life in November 2020 and December 2021.
+  Supporting them forced `require-dev` to span PHPUnit 8.5 to 11 and split the dependency graph
+  across two Guzzle majors. Requires a major version bump on release.
 
 ### Fixed
 - `XmlUtil::toArray()` no longer calls `each()`, which was removed in PHP 8.
