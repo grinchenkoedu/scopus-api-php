@@ -53,13 +53,20 @@ class ScopusApi
         $response = $this->client->get($uri, $options);
 
         if ($response->getStatusCode() === 200) {
-            $body = $response->getBody();
+            $body = (string) $response->getBody();
             $contentType = $response->getHeader('Content-Type');
             if ($contentType && strpos(strtolower($contentType[0]), '/xml') !== false) {
+                $internalErrors = libxml_use_internal_errors(true);
+                libxml_clear_errors();
                 $xml = simplexml_load_string($body, "SimpleXMLElement", LIBXML_NOCDATA);
+                $error = libxml_get_last_error();
+                libxml_clear_errors();
+                libxml_use_internal_errors($internalErrors);
+
                 if ($xml === false) {
-                    $error = libxml_get_last_error();
-                    throw new XmlException(sprintf('Xml response could not be parsed "%s" (%d) for %s', $error->message, $error->code, $uri), $error->code);
+                    $message = $error ? trim($error->message) : 'Unknown XML parsing error';
+                    $code = $error ? (int) $error->code : 0;
+                    throw new XmlException(sprintf('Xml response could not be parsed "%s" (%d) for %s', $message, $code, $uri), $code);
                 }
                 $body = json_encode(XmlUtil::toArray($xml));
             }
