@@ -58,7 +58,7 @@ class Author
 
     public function getAffiliationHistory()
     {
-        if (isset($this->data['affiliation-history'])) {
+        if (isset($this->data['affiliation-history']['affiliation'])) {
             return $this->affiliation_history ?: $this->affiliation_history = array_map(function ($affiliation) {
                 return new Affiliation($this->prepareAffiliationData($affiliation));
             }, $this->data['affiliation-history']['affiliation']);
@@ -67,7 +67,7 @@ class Author
 
     public function getSubjectAreas()
     {
-        if (isset($this->data['subject-areas'])) {
+        if (isset($this->data['subject-areas']['subject-area'])) {
             return $this->subject_areas ?: $this->subject_areas = array_map(function ($area) {
                 return new AuthorSubjectArea($this->prepareSubjectArea($area));
             }, $this->data['subject-areas']['subject-area']);
