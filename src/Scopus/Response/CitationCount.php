@@ -24,7 +24,7 @@ class CitationCount
 
     public function getStatus(): bool
     {
-        return $this->data['@status'];
+        return isset($this->data['@status']) ? (bool) $this->data['@status'] : false;
     }
 
     public function getIdentifier()
