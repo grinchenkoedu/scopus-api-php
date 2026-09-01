@@ -17,7 +17,7 @@ class Affiliation
     
     public function getId()
     {
-        return $this->data['afid'];
+        return isset($this->data['afid']) ? $this->data['afid'] : null;
     }
     
     public function getUrl()

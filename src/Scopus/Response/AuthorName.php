@@ -23,16 +23,16 @@ class AuthorName implements IAuthorName
 
     public function getSurname()
     {
-        return $this->data[$this->ns.'surname'];
+        return isset($this->data[$this->ns.'surname']) ? $this->data[$this->ns.'surname'] : null;
     }
 
     public function getInitials()
     {
-        return $this->data[$this->ns.'initials'];
+        return isset($this->data[$this->ns.'initials']) ? $this->data[$this->ns.'initials'] : null;
     }
     
     public function getIndexedName()
     {
-        return $this->data[$this->ns.'indexed-name'];
+        return isset($this->data[$this->ns.'indexed-name']) ? $this->data[$this->ns.'indexed-name'] : null;
     }
 }

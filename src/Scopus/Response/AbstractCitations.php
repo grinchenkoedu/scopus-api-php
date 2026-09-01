@@ -23,7 +23,7 @@ class AbstractCitations
 
     public function getHindex()
     {
-        return $this->data['h-index'];
+        return isset($this->data['h-index']) ? $this->data['h-index'] : null;
     }
 
     public function getIdentifiers()

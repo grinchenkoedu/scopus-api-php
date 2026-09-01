@@ -14,7 +14,7 @@ class AuthorCoredata
 
     public function getUrl()
     {
-        return $this->data['prism:url'];
+        return isset($this->data['prism:url']) ? $this->data['prism:url'] : null;
     }
 
     public function getIdentifier()

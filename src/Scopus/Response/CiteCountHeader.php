@@ -14,41 +14,41 @@ class CiteCountHeader
 
     public function getPrevColumnHeader()
     {
-        return $this->data["prevColumnHeader"];
+        return isset($this->data["prevColumnHeader"]) ? $this->data["prevColumnHeader"] : null;
     }
 
     public function getColumnHeading()
     {
-        return $this->data["columnHeading"];
+        return isset($this->data["columnHeading"]) ? $this->data["columnHeading"] : null;
     }
 
     public function getLaterColumnHeading()
     {
-        return $this->data["laterColumnHeading"];
+        return isset($this->data["laterColumnHeading"]) ? $this->data["laterColumnHeading"] : null;
     }
 
     public function getPrevColumnTotal()
     {
-        return $this->data["prevColumnTotal"];
+        return isset($this->data["prevColumnTotal"]) ? $this->data["prevColumnTotal"] : null;
     }
 
     public function getColumnTotal()
     {
-        return $this->data["columnTotal"];
+        return isset($this->data["columnTotal"]) ? $this->data["columnTotal"] : null;
     }
 
     public function getLaterColumnTotal()
     {
-        return $this->data["laterColumnTotal"];
+        return isset($this->data["laterColumnTotal"]) ? $this->data["laterColumnTotal"] : null;
     }
 
     public function getRangeColumnTotal()
     {
-        return $this->data["rangeColumnTotal"];
+        return isset($this->data["rangeColumnTotal"]) ? $this->data["rangeColumnTotal"] : null;
     }
 
     public function getGrandTotal()
     {
-        return $this->data["grandTotal"];
+        return isset($this->data["grandTotal"]) ? $this->data["grandTotal"] : null;
     }
 }

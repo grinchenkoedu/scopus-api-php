@@ -27,13 +27,17 @@ class Entry extends AbstractCoredata implements IAbstract
 
     public function getLinks()
     {
+        if (!isset($this->data['link'])) {
+            return null;
+        }
+
         return $this->links ?: $this->links = new EntryLinks($this->data['link']);
     }
 
 
     public function getCreator()
     {
-        return $this->data['dc:creator'];
+        return isset($this->data['dc:creator']) ? $this->data['dc:creator'] : null;
     }
 
     /**
@@ -112,7 +116,7 @@ class Entry extends AbstractCoredata implements IAbstract
 
     public function getAuthkeywords()
     {
-        return $this->data['authkeywords'];
+        return isset($this->data['authkeywords']) ? $this->data['authkeywords'] : null;
     }
 
     public function getYear()
@@ -128,6 +132,10 @@ class Entry extends AbstractCoredata implements IAbstract
     //Entry di SEARCH_AUTHOR_URI
     public function getPreferredName()
     {
+        if (!isset($this->data['preferred-name'])) {
+            return null;
+        }
+
         return $this->preferredName ?: $this->preferredName = new AuthorName($this->data['preferred-name']);
     }
 

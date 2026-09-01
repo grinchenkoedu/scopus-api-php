@@ -42,27 +42,27 @@ class CiteInfo extends AbstractCoredata implements IAbstract
 
     public function getCitationType()
     {
-        return $this->data["$"];
+        return isset($this->data["$"]) ? $this->data["$"] : null;
     }
 
     public function getCitationTypeCode()
     {
-        return $this->data["@code"];
+        return isset($this->data["@code"]) ? $this->data["@code"] : null;
     }
 
     public function getSortYear()
     {
-        return $this->data["sort-year"];
+        return isset($this->data["sort-year"]) ? $this->data["sort-year"] : null;
     }
 
     public function getStartingPage()
     {
-        return $this->data["prism:startingPage"];
+        return isset($this->data["prism:startingPage"]) ? $this->data["prism:startingPage"] : null;
     }
 
     public function getEndingPage()
     {
-        return $this->data["prism:endingPage"];
+        return isset($this->data["prism:endingPage"]) ? $this->data["prism:endingPage"] : null;
     }
 
     //getPublicationName is in AbstractCoredata
@@ -71,26 +71,26 @@ class CiteInfo extends AbstractCoredata implements IAbstract
 
     public function getPreviousColumnCount()
     {
-        return $this->data["pcc"];
+        return isset($this->data["pcc"]) ? $this->data["pcc"] : null;
     }
 
     public function getColumnCount()
     {
-        return $this->data["cc"];
+        return isset($this->data["cc"]) ? $this->data["cc"] : null;
     }
 
     public function getLaterColumnCount()
     {
-        return $this->data["lcc"];
+        return isset($this->data["lcc"]) ? $this->data["lcc"] : null;
     }
 
     public function getRangeCount()
     {
-        return $this->data["rangeCount"];
+        return isset($this->data["rangeCount"]) ? $this->data["rangeCount"] : null;
     }
 
     public function getRowTotal()
     {
-        return $this->data["rowTotal"];
+        return isset($this->data["rowTotal"]) ? $this->data["rowTotal"] : null;
     }
 }

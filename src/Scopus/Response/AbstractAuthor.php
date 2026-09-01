@@ -17,21 +17,25 @@ class AbstractAuthor extends AuthorName implements IAuthor
 
     public function getId()
     {
-        return $this->data['@auid'];
+        return isset($this->data['@auid']) ? $this->data['@auid'] : null;
     }
 
     public function getSeq()
     {
-        return $this->data['@seq'];
+        return isset($this->data['@seq']) ? $this->data['@seq'] : null;
     }
 
     public function getPreferredName()
     {
+        if (!isset($this->data['preferred-name'])) {
+            return null;
+        }
+
         return $this->preferredName ?: $this->preferredName = new AuthorName($this->data['preferred-name'], 'ce');
     }
 
     public function getUrl()
     {
-        return $this->data['author-url'];
+        return isset($this->data['author-url']) ? $this->data['author-url'] : null;
     }
 }

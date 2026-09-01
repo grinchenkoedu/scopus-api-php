@@ -17,7 +17,7 @@ class AuthorAffiliation
 
     public function getId()
     {
-        return $this->data['@id'];
+        return isset($this->data['@id']) ? $this->data['@id'] : null;
     }
 
     public function getType()

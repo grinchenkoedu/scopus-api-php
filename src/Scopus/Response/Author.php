@@ -29,6 +29,10 @@ class Author
 
     public function getCoreData()
     {
+        if (!isset($this->data['coredata'])) {
+            return null;
+        }
+
         return $this->coreData ?: $this->coreData = new AuthorCoredata($this->data['coredata']);
     }
 
@@ -45,6 +49,10 @@ class Author
     //non funziona
     public function getAffiliation()
     {
+        if (!isset($this->data['affiliation-current'])) {
+            return null;
+        }
+
         return $this->affiliation ?: $this->affiliation = new Affiliation($this->prepareAffiliationData($this->data['affiliation-current']));
     }
 

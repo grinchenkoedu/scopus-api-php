@@ -35,6 +35,10 @@ class AuthorProfile
 
     public function getPreferredName()
     {
+        if (!isset($this->data['preferred-name'])) {
+            return null;
+        }
+
         return $this->preferredName ?: $this->preferredName = new AuthorName($this->data['preferred-name']);
     }
 
