@@ -1,0 +1,167 @@
+<?php
+
+namespace Scopus\Tests;
+
+use Scopus\ScopusApi;
+use GuzzleHttp\Psr7\Response;
+use Scopus\Response\Abstracts;
+use Scopus\Response\Author;
+use Scopus\Response\CitationCount;
+
+class ScopusApiTest extends TestCase
+{
+    public function testRetrieveAuthorLimits()
+    {
+        $api = $this->getMockedApi([]);
+        
+        $ids = array_fill(0, 26, '123456');
+        
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("The maximum number of 25 author id's exceeded!");
+        
+        $api->retrieveAuthor($ids);
+    }
+    
+    public function testRetrieveAbstractLimits()
+    {
+        $api = $this->getMockedApi([]);
+        
+        $ids = array_fill(0, 26, '123456');
+        
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("The maximum number of 25 abstract id's exceeded!");
+        
+        $api->retrieveAbstract($ids);
+    }
+
+    public function testRetrieveCitationCountLimits()
+    {
+        $api = $this->getMockedApi([]);
+        
+        $ids = array_fill(0, 26, '123456');
+        
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("The maximum number of 25 document id's exceeded!");
+        
+        $api->retrieveCitationCount($ids);
+    }
+
+    public function testRetrieveCitationCountSuccessful()
+    {
+        $mockJson = '{
+            "citation-count-response": {
+                "document": {
+                    "@status": "found",
+                    "dc:identifier": "123",
+                    "citation-count": "5"
+                }
+            }
+        }';
+        
+        $api = $this->getMockedApi([
+            new Response(200, [], $mockJson)
+        ]);
+        
+        $results = $api->retrieveCitationCount(['123']);
+        
+        $this->assertIsArray($results);
+        $this->assertCount(1, $results);
+        $this->assertInstanceOf(CitationCount::class, $results[0]);
+        $this->assertEquals("123", $results[0]->getIdentifier());
+        $this->assertEquals("5", $results[0]->getCitationCount());
+        $this->assertEquals("found", $results[0]->getStatus());
+    }
+
+    public function testSearchAuthorsSuccessful()
+    {
+        $mockJson = '{
+            "search-results": {
+                "opensearch:totalResults": "1",
+                "opensearch:startIndex": "0",
+                "opensearch:itemsPerPage": "25",
+                "opensearch:Query": {
+                    "@role": "request",
+                    "@searchTerms": "authlast(smith) and authfirst(john)",
+                    "@startPage": "0"
+                },
+                "link": [],
+                "entry": [
+                    {
+                        "dc:title": "Test Article",
+                        "dc:creator": "Smith, J."
+                    }
+                ]
+            }
+        }';
+        $api = $this->getMockedApi([new Response(200, [], $mockJson)]);
+        $results = $api->searchAuthors('smith', 'john');
+        
+        $this->assertInstanceOf(\Scopus\Response\SearchResults::class, $results);
+        $this->assertEquals(1, $results->getTotalResults());
+        $this->assertEquals("Test Article", $results->getEntries()[0]->getTitle());
+    }
+
+    public function testRetrieveAbstractSuccessful()
+    {
+        $mockJson = '{
+            "abstracts-retrieval-response": {
+                "coredata": {
+                    "dc:title": "Testing Title",
+                    "dc:identifier": "SCOPUS_ID:123"
+                }
+            }
+        }';
+        $api = $this->getMockedApi([new Response(200, [], $mockJson)]);
+        $results = $api->retrieveAbstract('123');
+        
+        $this->assertInstanceOf(Abstracts::class, $results);
+        $this->assertEquals("Testing Title", $results->getCoredata()->getTitle());
+    }
+
+    public function testRetrieveAuthorSuccessful()
+    {
+        $mockJson = '{
+            "author-retrieval-response": [
+                {
+                    "coredata": {
+                        "dc:identifier": "AUTHOR_ID:123"
+                    },
+                    "author-profile": {
+                        "preferred-name": {
+                            "surname": "Doe",
+                            "given-name": "John"
+                        }
+                    }
+                }
+            ]
+        }';
+        $api = $this->getMockedApi([new Response(200, [], $mockJson)]);
+        $results = $api->retrieveAuthor('123');
+        
+        $this->assertInstanceOf(Author::class, $results);
+        $this->assertEquals("AUTHOR_ID:123", $results->getCoredata()->getIdentifier());
+        $this->assertEquals("Doe", $results->getProfile()->getPreferredName()->getSurname());
+    }
+
+    public function testXmlException()
+    {
+        $mockJson = '<invalid xml>';
+        $api = $this->getMockedApi([
+            new Response(200, ['Content-Type' => 'text/xml'], $mockJson)
+        ]);
+        
+        $this->expectException(\Scopus\Exception\XmlException::class);
+        $api->retrieveCitationCount(['123']);
+    }
+
+    public function testJsonException()
+    {
+        $mockJson = '{invalid json}';
+        $api = $this->getMockedApi([
+            new Response(200, ['Content-Type' => 'application/json'], $mockJson)
+        ]);
+        
+        $this->expectException(\Scopus\Exception\JsonException::class);
+        $api->retrieveCitationCount(['123']);
+    }
+}
