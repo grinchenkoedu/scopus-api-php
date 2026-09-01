@@ -84,17 +84,17 @@ class Author
     protected function prepareAffiliationData($affiliation)
     {
         return [
-            'afid' => $affiliation['@id'],
-            'affiliation-url' => $affiliation['@href']
+            'afid' => isset($affiliation['@id']) ? $affiliation['@id'] : null,
+            'affiliation-url' => isset($affiliation['@href']) ? $affiliation['@href'] : null
         ];
     }
 
     protected function prepareSubjectArea($area)
     {
         return [
-            'abbrev' => $area['@abbrev'],
-            'code' => $area['@code'],
-            'area' => $area['$']
+            'abbrev' => isset($area['@abbrev']) ? $area['@abbrev'] : null,
+            'code' => isset($area['@code']) ? $area['@code'] : null,
+            'area' => isset($area['$']) ? $area['$'] : null
         ];
     }
 }
