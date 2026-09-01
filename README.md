@@ -1,7 +1,6 @@
 # Scopus API for PHP (Unofficial)
 
 [![Latest Stable Version](https://poser.pugx.org/grinchenkoedu/scopus-search-api/v/stable)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
-[![Total Downloads](https://poser.pugx.org/grinchenkoedu/scopus-search-api/downloads)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
 [![License](https://poser.pugx.org/grinchenkoedu/scopus-search-api/license)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
 [![PHP Version Require](https://poser.pugx.org/grinchenkoedu/scopus-search-api/require/php)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
 
@@ -77,6 +76,12 @@ Official API documentation for the previous fork version:
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
+
+## Contributors
+
+[Kaspars Jaudzems](https://github.com/kasparsj) and many others:
+
+![Contributors](https://contrib.rocks/image?repo=grinchenkoedu/scopus-api-php)
 
 ## License
 
