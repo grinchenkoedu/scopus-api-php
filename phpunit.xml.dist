@@ -4,14 +4,15 @@
          bootstrap="vendor/autoload.php"
          cacheResult="false"
          colors="true">
+    <!--
+        Deliberately free of coverage configuration: the source filter is spelled
+        <coverage> in PHPUnit 9 and <source> in PHPUnit 10+, and require-dev spans
+        both. Everything left here validates against 8.5 through 11. Coverage is
+        requested on the command line instead - see "Development" in README.md.
+    -->
     <testsuites>
         <testsuite name="Scopus API Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
-    <source>
-        <include>
-            <directory suffix=".php">src</directory>
-        </include>
-    </source>
 </phpunit>

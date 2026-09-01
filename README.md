@@ -74,6 +74,24 @@ foreach ($results->getEntries() as $entry) {
 Official API documentation:
 [https://grinchenkoedu.github.io/scopus-api-php/](https://grinchenkoedu.github.io/scopus-api-php/)
 
+## Development
+
+Install the development dependencies and run the test suite:
+
+```bash
+composer install
+vendor/bin/phpunit
+```
+
+Coverage is not configured in `phpunit.xml.dist`, because the source filter is
+spelled differently in PHPUnit 9 and PHPUnit 10+ and this package supports both.
+Request it on the command line instead:
+
+```bash
+vendor/bin/phpunit --coverage-text --coverage-filter src   # PHPUnit 10 and 11
+vendor/bin/phpunit --coverage-text --whitelist src         # PHPUnit 8.5 and 9
+```
+
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
