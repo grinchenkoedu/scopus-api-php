@@ -1,9 +1,9 @@
 # Scopus API for PHP
 
-[![Latest Stable Version](https://poser.pugx.org/grinchenkoedu/scopus-search-api/v/stable)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
-[![License](https://poser.pugx.org/grinchenkoedu/scopus-search-api/license)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
-[![PHP Version Require](https://poser.pugx.org/grinchenkoedu/scopus-search-api/require/php)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
-[![CI Tests](https://github.com/grinchenkoedu/scopus-api-php/actions/workflows/ci.yml/badge.svg)](https://github.com/grinchenkoedu/scopus-api-php/actions/workflows/ci.yml)
+[![CI](https://github.com/grinchenkoedu/scopus-api-php/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/grinchenkoedu/scopus-api-php/actions/workflows/ci.yml)
+[![Latest Stable Version](https://img.shields.io/packagist/v/grinchenkoedu/scopus-search-api)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
+[![PHP Version Require](https://img.shields.io/packagist/php-v/grinchenkoedu/scopus-search-api)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
+[![License](https://img.shields.io/packagist/l/grinchenkoedu/scopus-search-api)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
 
 A third party PHP SDK for [Scopus APIs](https://dev.elsevier.com/scopus.html).
 
