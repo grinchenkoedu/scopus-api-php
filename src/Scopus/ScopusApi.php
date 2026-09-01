@@ -133,7 +133,7 @@ class ScopusApi
      *
      * @return SearchResults use getEntries() method for get the array of author format -> https://dev.elsevier.com/guides/AuthorSearchViews.htm
      */
-    public function searchAuthors(string $lastName = null, string $firstName = null, string $affiliation = null, array $options = [])
+    public function searchAuthors(?string $lastName = null, ?string $firstName = null, ?string $affiliation = null, array $options = [])
     {
         if (empty($lastName) && empty($firstName) && empty($affiliation)) return null;
 
@@ -169,7 +169,7 @@ class ScopusApi
      * Call the getCompactInfo() method, in the single instance, to retrieve the document citations in details (max 25 for instance),
      * Call the getTotalCompactInfo() method, in the single instance, to retrieve all documents citations  (max 25 for instance)
      */
-    public function overviewCitation($documentId, string $startYear = null, string $endYear = null, array $options = [])
+    public function overviewCitation($documentId, ?string $startYear = null, ?string $endYear = null, array $options = [])
     {
         if ($startYear && $endYear) $options["date"] = $startYear . "-" . $endYear;
         if (!is_array($documentId)) $documentId = [$documentId];
@@ -323,7 +323,7 @@ class ScopusApi
      *
      * @return Entry[] Return all articles by the selected author https://dev.elsevier.com/guides/ScopusSearchViews.htm
      */
-    public function retrieveDocumentsAuthor(string $authorId, string $startYear = null, string $endYear = null, bool $jrDocument = false)
+    public function retrieveDocumentsAuthor(string $authorId, ?string $startYear = null, ?string $endYear = null, bool $jrDocument = false)
     {
         //Query parameters -> https://dev.elsevier.com/tips/ScopusSearchTips.htm        
         $query = "au-id(" . $authorId . ")";
