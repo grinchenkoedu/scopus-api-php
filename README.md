@@ -36,7 +36,7 @@ use Scopus\ScopusApi;
 use Scopus\ScopusApiFactory;
 
 // replace with your API key
-$apiKey = "114ff0c3b57a0ec62e15efdedefd2e6f";
+$apiKey = "your-api-key-here";
 $api = (new ScopusApiFactory($apiKey))->createApiClient();
 
 // Scopus Search API
