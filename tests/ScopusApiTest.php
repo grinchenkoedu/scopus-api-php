@@ -168,6 +168,50 @@ class ScopusApiTest extends TestCase
         $api->retrieveCitationCount(['123']);
     }
 
+    public function testXmlExceptionWithoutLibxmlError()
+    {
+        // An empty body makes simplexml_load_string() return false without
+        // recording a libxml error, so there is nothing to read a message from.
+        $api = $this->getMockedApi([
+            new Response(200, ['Content-Type' => 'text/xml'], '')
+        ]);
+
+        $this->expectException(\Scopus\Exception\XmlException::class);
+        $this->expectExceptionMessage('Unknown XML parsing error');
+
+        $api->retrieveCitationCount(['123']);
+    }
+
+    public function testXmlParsingLeavesTheCallersLibxmlErrorsAlone()
+    {
+        $previous = libxml_use_internal_errors(true);
+        libxml_clear_errors();
+        simplexml_load_string('<caller>');
+        $callerMessages = $this->libxmlMessages();
+        $this->assertNotEmpty($callerMessages);
+
+        try {
+            $this->getMockedApi([new Response(200, ['Content-Type' => 'text/xml'], '<broken>')])
+                ->retrieveCitationCount(['123']);
+        } catch (\Scopus\Exception\XmlException $e) {
+            // expected
+        }
+
+        // The caller's errors must still be there, in order, ahead of ours.
+        $after = $this->libxmlMessages();
+        $this->assertSame($callerMessages, array_slice($after, 0, count($callerMessages)));
+
+        libxml_clear_errors();
+        libxml_use_internal_errors($previous);
+    }
+
+    private function libxmlMessages()
+    {
+        return array_map(function ($error) {
+            return $error->message;
+        }, libxml_get_errors());
+    }
+
     public function testJsonException()
     {
         $mockJson = '{invalid json}';
