@@ -18,7 +18,7 @@ Currently supported APIs:
 
 ## Requirements
 
-- PHP >= 7.4
+- PHP 7.4 – 8.x
 - `guzzlehttp/guzzle` ^7.15.2 || ^8.0.1
 
 ## Installation
