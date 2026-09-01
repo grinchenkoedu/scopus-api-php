@@ -26,5 +26,13 @@
       "Scopus\\": "src/Scopus/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Scopus\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.5 || ^9.5 || ^10.0 || ^11.0"
+  },
   "type": "library"
 }
