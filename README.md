@@ -1,8 +1,13 @@
 # Scopus API for PHP (Unofficial)
 
-PHP SDK for [Scopus APIs](https://dev.elsevier.com/scopus.html)
+[![Latest Stable Version](https://poser.pugx.org/grinchenkoedu/scopus-search-api/v/stable)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
+[![Total Downloads](https://poser.pugx.org/grinchenkoedu/scopus-search-api/downloads)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
+[![License](https://poser.pugx.org/grinchenkoedu/scopus-search-api/license)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
+[![PHP Version Require](https://poser.pugx.org/grinchenkoedu/scopus-search-api/require/php)](https://packagist.org/packages/grinchenkoedu/scopus-search-api)
 
-Currently, supported APIs:
+PHP SDK for [Scopus APIs](https://dev.elsevier.com/scopus.html).
+
+Currently supported APIs:
 - Scopus Search API
 - Abstract Retrieval API
 - Author Retrieval API
@@ -11,11 +16,20 @@ Currently, supported APIs:
     - Citation Overview API
 - Abstract Citations Count API
 
+## Requirements
+
+- PHP >= 7.2
+- `guzzlehttp/guzzle` ^7.15.2 || ^8.0.1
+
 ## Installation
 
-`composer require grinchenkoedu/scopus-search-api` 
+Install the package via Composer:
 
-## Usage:
+```bash
+composer require grinchenkoedu/scopus-search-api
+```
+
+## Usage
 
 ```php
 use Scopus\ScopusApi;
@@ -57,8 +71,13 @@ foreach ($results->getEntries() as $entry) {
 
 ## API Docs
 
-https://kasparsj.github.io/scopus-api-php/
+Official API documentation for the previous fork version:
+[https://kasparsj.github.io/scopus-api-php/](https://kasparsj.github.io/scopus-api-php/)
 
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
+
+## License
+
+This project is licensed under the MIT License.
