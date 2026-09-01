@@ -13,6 +13,12 @@ jobs:
       fail-fast: false
       matrix:
         php-version: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5']
+        dependencies: ['highest']
+        include:
+          # Guzzle 8 wins on every supported PHP, so without this leg the
+          # ^7.15.2 half of the guzzle constraint is never exercised.
+          - php-version: '7.4'
+            dependencies: 'lowest'
 
     steps:
     - uses: actions/checkout@v4
@@ -28,7 +34,7 @@ jobs:
       run: composer validate --strict
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: composer update --prefer-dist --no-progress ${{ matrix.dependencies == 'lowest' && '--prefer-lowest' || '' }}
 
     - name: Lint PHP files
       run: find src tests -name "*.php" -print0 | xargs -0 -n1 php -l
