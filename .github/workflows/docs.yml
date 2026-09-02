@@ -1,0 +1,61 @@
+name: Docs
+
+# Scoped to the paths that can actually cause drift. The generated output also
+# depends on the resolved dependency versions - guzzle 7 and guzzle 8 produce
+# 32 differing files - so running this on every push would go red whenever a
+# dependency published, unrelated to any change here.
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - 'src/**'
+      - 'docs/**'
+      - 'composer.json'
+      - '.github/workflows/docs.yml'
+  pull_request:
+    branches: [ "master" ]
+    paths:
+      - 'src/**'
+      - 'docs/**'
+      - 'composer.json'
+      - '.github/workflows/docs.yml'
+
+jobs:
+  drift:
+    name: docs/ is up to date with src/
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        coverage: none
+        tools: composer:v2
+
+    - name: Install dependencies
+      run: composer update --prefer-dist --no-progress
+
+    - name: Download ApiGen
+      run: curl -sSfL -o apigen.phar https://github.com/ApiGen/ApiGen/releases/download/v7.0.0-alpha.6/apigen.phar
+
+    - name: Regenerate the API docs
+      # --workers 1 is required: the parallel scheduler crashes when ApiGen runs
+      # from a PHAR. Keep this command in step with README.md.
+      run: |
+        php apigen.phar --workers 1 --output docs \
+          --title "Scopus API for PHP" \
+          --base-url "https://grinchenkoedu.github.io/scopus-api-php/" \
+          src
+
+    - name: Check for drift
+      run: |
+        if git diff --quiet -- docs; then
+          echo "docs/ matches src/."
+          exit 0
+        fi
+        echo "::error file=docs::docs/ is out of date with src/. Regenerate it (see 'Regenerating the API docs' in README.md) and commit the result."
+        git diff --stat -- docs
+        exit 1

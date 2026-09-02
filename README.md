@@ -107,6 +107,9 @@ php apigen.phar --workers 1 --output docs \
 
 `--workers 1` is required: the parallel scheduler crashes when ApiGen runs from a PHAR.
 
+CI enforces this. The **Docs** workflow regenerates `docs/` on any change to `src/`,
+`docs/` or `composer.json` and fails if the result differs from what is committed.
+
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
