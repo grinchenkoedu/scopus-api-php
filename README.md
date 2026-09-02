@@ -92,20 +92,16 @@ vendor/bin/phpunit --coverage-text --coverage-filter src   # PHPUnit 10 and 11
 vendor/bin/phpunit --coverage-text --whitelist src         # PHPUnit 8.5 and 9
 ```
 
-### Regenerating the API docs
+### API documentation
 
 `docs/` is generated output, published at the API Docs link above via GitHub Pages
-(`master` branch, `/docs` folder). Regenerate it after changing anything under `src/`:
+(`master` branch, `/docs` folder). **You do not need to regenerate it by hand** — the
+**Docs** workflow rebuilds it on every change to `src/` or `composer.json` and commits
+the result.
 
-```bash
-curl -sL -o apigen.phar https://github.com/ApiGen/ApiGen/releases/download/v7.0.0-alpha.6/apigen.phar
-php apigen.phar --workers 1 --output docs \
-  --title "Scopus API for PHP" \
-  --base-url "https://grinchenkoedu.github.io/scopus-api-php/" \
-  src
-```
-
-`--workers 1` is required: the parallel scheduler crashes when ApiGen runs from a PHAR.
+Generation is kept on CI on purpose: ApiGen lists implementing classes in filesystem
+order without sorting them, so the same source produces different output on macOS and
+on Linux. Running it in one place keeps the result reproducible.
 
 ## Changelog
 
