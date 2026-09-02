@@ -252,7 +252,7 @@ class ScopusApi
             $chunks = array_chunk($scopusIds, 25);
             $abstracts = [];
             foreach ($chunks as $chunk) {
-                $abstracts = array_merge($abstracts, array_combine($chunk, $this->retrieveAbstract($chunk, $options)));
+                $abstracts = array_merge($abstracts, array_combine($chunk, $this->keyable($this->retrieveAbstract($chunk, $options), $chunk)));
             }
             return $abstracts;
         }
@@ -300,7 +300,7 @@ class ScopusApi
             $chunks = array_chunk($authorIds, 25);
             $authors = [];
             foreach ($chunks as $chunk) {
-                $authors = array_merge($authors, array_combine($chunk, $this->retrieveAuthor($chunk, $options)));
+                $authors = array_merge($authors, array_combine($chunk, $this->keyable($this->retrieveAuthor($chunk, $options), $chunk)));
             }
             return $authors;
         }
@@ -308,6 +308,34 @@ class ScopusApi
         return [
             $authorIds[0] => $this->retrieveAuthor($authorIds[0], $options),
         ];
+    }
+
+    /**
+     * A chunk of one id gets a single-document response rather than a list, and Scopus may
+     * return fewer documents than were asked for. Either way array_combine() would fail, so
+     * normalise the shape and refuse to key results we cannot key correctly.
+     *
+     * @param mixed $retrieved
+     * @param array $chunk
+     *
+     * @return array
+     *
+     * @throws Exception
+     */
+    private function keyable($retrieved, array $chunk): array
+    {
+        $retrieved = is_array($retrieved) ? $retrieved : [$retrieved];
+
+        if (count($retrieved) !== count($chunk)) {
+            throw new Exception(sprintf(
+                'Scopus returned %d of the %d requested documents (%s), so results cannot be keyed by id.',
+                count($retrieved),
+                count($chunk),
+                implode(',', $chunk)
+            ));
+        }
+
+        return $retrieved;
     }
 
     public function retrieveAffiliation($affiliationId, array $options = [])

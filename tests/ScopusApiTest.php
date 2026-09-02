@@ -209,6 +209,40 @@ class ScopusApiTest extends TestCase
         $this->assertInstanceOf(Author::class, $authors['123']);
     }
 
+    public function testRetrieveAbstractsHandlesAChunkOfOne()
+    {
+        // 26 ids chunk as [25, 1]. Scopus answers a one-id request with a single
+        // document rather than a list, which array_combine() cannot key.
+        $multi = '{"abstracts-retrieval-multidoc-response":{"abstracts-retrieval-response":['
+            . implode(',', array_fill(0, 25, '{"coredata":{"dc:identifier":"SCOPUS_ID:1"}}')) . ']}}';
+        $single = '{"abstracts-retrieval-response":{"coredata":{"dc:identifier":"SCOPUS_ID:26"}}}';
+
+        $api = $this->getMockedApi([
+            new Response(200, [], $multi),
+            new Response(200, [], $single),
+        ]);
+
+        $abstracts = $api->retrieveAbstracts(range(1, 26));
+
+        $this->assertCount(26, $abstracts);
+        $this->assertInstanceOf(Abstracts::class, $abstracts[26]);
+    }
+
+    public function testRetrieveAbstractsRefusesToKeyAPartialResult()
+    {
+        // Two ids asked for, one document returned: the results cannot be keyed
+        // by id, and guessing would silently mislabel them.
+        $json = '{"abstracts-retrieval-multidoc-response":{"abstracts-retrieval-response":['
+            . '{"coredata":{"dc:identifier":"SCOPUS_ID:111"}}]}}';
+
+        $api = $this->getMockedApi([new Response(200, [], $json)]);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Scopus returned 1 of the 2 requested documents');
+
+        $api->retrieveAbstracts(['111', '222']);
+    }
+
     public function testXmlException()
     {
         $mockJson = '<invalid xml>';
