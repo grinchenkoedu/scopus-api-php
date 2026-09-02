@@ -69,9 +69,17 @@ class ScopusApiTest extends TestCase
         $this->assertInstanceOf(CitationCount::class, $results[0]);
         $this->assertEquals("123", $results[0]->getIdentifier());
         $this->assertEquals("5", $results[0]->getCitationCount());
-        // getStatus() declares ': bool', so the "found" string is coerced.
-        // It cannot currently tell "found" from "NOT_FOUND" - both are true.
-        $this->assertTrue($results[0]->getStatus());
+        $this->assertSame("found", $results[0]->getStatus());
+        $this->assertTrue($results[0]->isFound());
+    }
+
+    public function testCitationCountNotFound()
+    {
+        // The whole point of the change: 'NOT_FOUND' used to coerce to true.
+        $citationCount = new CitationCount(['@status' => 'NOT_FOUND']);
+
+        $this->assertSame('NOT_FOUND', $citationCount->getStatus());
+        $this->assertFalse($citationCount->isFound());
     }
 
     public function testCitationCountWithoutStatus()
@@ -81,7 +89,8 @@ class ScopusApiTest extends TestCase
         // Constructing one directly is how a caller hits the missing-key path.
         $citationCount = new CitationCount(['dc:identifier' => '123']);
 
-        $this->assertFalse($citationCount->getStatus());
+        $this->assertNull($citationCount->getStatus());
+        $this->assertFalse($citationCount->isFound());
         $this->assertNull($citationCount->getCitationCount());
         $this->assertNull($citationCount->getLinks());
     }
