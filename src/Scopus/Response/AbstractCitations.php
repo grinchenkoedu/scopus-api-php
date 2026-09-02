@@ -29,7 +29,7 @@ class AbstractCitations
     public function getIdentifiers(): array
     {
         if (isset($this->data['identifier-legend']['identifier'])) {
-            return $this->identifiers ?: $this->identifiers = array_map(function ($identifier) {
+            return $this->identifiers ?? $this->identifiers = array_map(function ($identifier) {
                 return new AbstractCoredata($identifier);
             }, $this->data['identifier-legend']['identifier']);
         }
@@ -39,7 +39,7 @@ class AbstractCitations
     public function getCiteInfos(): array
     {
         if (isset($this->data['citeInfoMatrix']['citeInfoMatrixXML']['citationMatrix']['citeInfo'])) {
-            return $this->citeInfos ?: $this->citeInfos = array_map(function ($citeInfo) {
+            return $this->citeInfos ?? $this->citeInfos = array_map(function ($citeInfo) {
                 return new CiteInfo($citeInfo);
             }, $this->data['citeInfoMatrix']['citeInfoMatrixXML']['citationMatrix']['citeInfo']);
         }

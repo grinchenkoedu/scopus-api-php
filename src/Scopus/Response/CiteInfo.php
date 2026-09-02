@@ -34,7 +34,7 @@ class CiteInfo extends AbstractCoredata implements IAbstract
     public function getAuthors(): array
     {
         if (isset($this->data['author'])) {
-            return $this->authors ?: $this->authors = array_map(function ($author) {
+            return $this->authors ?? $this->authors = array_map(function ($author) {
                 return new EntryAuthor($author);
             }, $this->data['author']);
         }

@@ -49,7 +49,7 @@ class SearchResults
             return null;
         }
 
-        return $this->links ?: $this->links = new SearchLinks($this->data['link']);
+        return $this->links ?? $this->links = new SearchLinks($this->data['link']);
     }
 
     /**
@@ -58,7 +58,7 @@ class SearchResults
     public function getEntries(): array
     {
         if (isset($this->data['entry'])) {
-            return $this->entries ?: $this->entries = array_map(function ($entry) {
+            return $this->entries ?? $this->entries = array_map(function ($entry) {
                 return new Entry($entry);
             }, $this->data['entry']);
         }

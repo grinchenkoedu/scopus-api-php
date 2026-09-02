@@ -83,6 +83,6 @@ class CitationCount
             return null;
         }
 
-        return $this->links ?: $this->links = new CitationCountLinks($this->data['link']);
+        return $this->links ?? $this->links = new CitationCountLinks($this->data['link']);
     }
 }

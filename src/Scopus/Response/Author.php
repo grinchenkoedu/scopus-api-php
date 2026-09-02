@@ -33,7 +33,7 @@ class Author
             return null;
         }
 
-        return $this->coreData ?: $this->coreData = new AuthorCoredata($this->data['coredata']);
+        return $this->coreData ?? $this->coreData = new AuthorCoredata($this->data['coredata']);
     }
 
     public function getHindex()
@@ -53,13 +53,13 @@ class Author
             return null;
         }
 
-        return $this->affiliation ?: $this->affiliation = new Affiliation($this->prepareAffiliationData($this->data['affiliation-current']));
+        return $this->affiliation ?? $this->affiliation = new Affiliation($this->prepareAffiliationData($this->data['affiliation-current']));
     }
 
     public function getAffiliationHistory(): array
     {
         if (isset($this->data['affiliation-history']['affiliation'])) {
-            return $this->affiliation_history ?: $this->affiliation_history = array_map(function ($affiliation) {
+            return $this->affiliation_history ?? $this->affiliation_history = array_map(function ($affiliation) {
                 return new Affiliation($this->prepareAffiliationData($affiliation));
             }, $this->data['affiliation-history']['affiliation']);
         }
@@ -70,7 +70,7 @@ class Author
     public function getSubjectAreas(): array
     {
         if (isset($this->data['subject-areas']['subject-area'])) {
-            return $this->subject_areas ?: $this->subject_areas = array_map(function ($area) {
+            return $this->subject_areas ?? $this->subject_areas = array_map(function ($area) {
                 return new AuthorSubjectArea($this->prepareSubjectArea($area));
             }, $this->data['subject-areas']['subject-area']);
         }
@@ -81,7 +81,7 @@ class Author
     public function getProfile()
     {
         if (isset($this->data['author-profile'])) {
-            return $this->profile ?: $this->profile = new AuthorProfile($this->data['author-profile']);
+            return $this->profile ?? $this->profile = new AuthorProfile($this->data['author-profile']);
         }
 
         return null;

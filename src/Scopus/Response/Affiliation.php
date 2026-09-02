@@ -43,7 +43,7 @@ class Affiliation
     public function getNameVariant(): array
     {
         if (isset($this->data['name-variant'])) {
-            return $this->nameVariants ?: $this->nameVariants = array_map(function($nameVariant) {
+            return $this->nameVariants ?? $this->nameVariants = array_map(function($nameVariant) {
                 return $nameVariant['$'];
             }, $this->data['name-variant']);
         }

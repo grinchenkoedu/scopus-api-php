@@ -31,7 +31,7 @@ class Entry extends AbstractCoredata implements IAbstract
             return null;
         }
 
-        return $this->links ?: $this->links = new EntryLinks($this->data['link']);
+        return $this->links ?? $this->links = new EntryLinks($this->data['link']);
     }
 
 
@@ -64,7 +64,7 @@ class Entry extends AbstractCoredata implements IAbstract
     public function getAffiliations(): array
     {
         if (isset($this->data['affiliation'])) {
-            return $this->affiliations ?: $this->affiliations = array_map(function ($affiliation) {
+            return $this->affiliations ?? $this->affiliations = array_map(function ($affiliation) {
                 return new Affiliation($affiliation);
             }, $this->data['affiliation']);
         }
@@ -93,7 +93,7 @@ class Entry extends AbstractCoredata implements IAbstract
     public function getAuthors(): array
     {
         if (isset($this->data['author'])) {
-            return $this->authors ?: $this->authors = array_map(function ($author) {
+            return $this->authors ?? $this->authors = array_map(function ($author) {
                 return new EntryAuthor($author);
             }, $this->data['author']);
         }
@@ -140,7 +140,7 @@ class Entry extends AbstractCoredata implements IAbstract
             return null;
         }
 
-        return $this->preferredName ?: $this->preferredName = new AuthorName($this->data['preferred-name']);
+        return $this->preferredName ?? $this->preferredName = new AuthorName($this->data['preferred-name']);
     }
 
     public function getAffiliation()

@@ -21,6 +21,6 @@ class AbstractItem
             return null;
         }
 
-        return $this->bibrecord ?: $this->bibrecord = new Bibrecord($this->data['bibrecord']);
+        return $this->bibrecord ?? $this->bibrecord = new Bibrecord($this->data['bibrecord']);
     }
 }

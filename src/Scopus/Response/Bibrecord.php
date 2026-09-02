@@ -21,6 +21,6 @@ class Bibrecord
             return null;
         }
 
-        return $this->head ?: $this->head = new BibrecordHead($this->data['head']);
+        return $this->head ?? $this->head = new BibrecordHead($this->data['head']);
     }
 }

@@ -27,7 +27,7 @@ class Abstracts implements IAbstract
             return null;
         }
 
-        return $this->coredata ?: $this->coredata = new AbstractCoredata($this->data['coredata']);
+        return $this->coredata ?? $this->coredata = new AbstractCoredata($this->data['coredata']);
     }
 
     /**
@@ -36,7 +36,7 @@ class Abstracts implements IAbstract
     public function getAuthors(): array
     {
         if (isset($this->data['authors']['author'])) {
-            return $this->authors ?: $this->authors = array_map(function($author) {
+            return $this->authors ?? $this->authors = array_map(function($author) {
                 return new AbstractAuthor($author);
             }, $this->data['authors']['author']);
         }
@@ -58,6 +58,6 @@ class Abstracts implements IAbstract
             return null;
         }
 
-        return $this->item ?: $this->item = new AbstractItem($this->data['item']);
+        return $this->item ?? $this->item = new AbstractItem($this->data['item']);
     }
 }
