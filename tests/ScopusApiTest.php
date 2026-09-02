@@ -166,6 +166,49 @@ class ScopusApiTest extends TestCase
         $this->assertEquals("Doe", $results->getProfile()->getPreferredName()->getSurname());
     }
 
+    public function testRetrieveAbstractsWithNoIds()
+    {
+        $api = $this->getMockedApi([]);
+
+        // No request should be made at all - MockHandler would throw if one were.
+        $this->assertSame([], $api->retrieveAbstracts([]));
+        $this->assertSame([], $api->retrieveAuthors([]));
+    }
+
+    public function testRetrieveAbstractsPropagatesFailures()
+    {
+        // This used to be swallowed and returned as [], indistinguishable from
+        // a document that simply was not found.
+        $api = $this->getMockedApi([
+            new Response(200, ['Content-Type' => 'application/json'], '{invalid json}')
+        ]);
+
+        $this->expectException(\Scopus\Exception\JsonException::class);
+
+        $api->retrieveAbstracts(['123']);
+    }
+
+    public function testRetrieveAuthorsDeduplicatesIds()
+    {
+        $mockJson = '{
+            "author-retrieval-response": [
+                {
+                    "coredata": { "dc:identifier": "AUTHOR_ID:123" }
+                }
+            ]
+        }';
+
+        // Two ids, one distinct: the single-document path, so exactly one
+        // response is queued. A second request would exhaust the MockHandler.
+        $api = $this->getMockedApi([new Response(200, [], $mockJson)]);
+
+        $authors = $api->retrieveAuthors(['123', '123']);
+
+        $this->assertCount(1, $authors);
+        $this->assertArrayHasKey('123', $authors);
+        $this->assertInstanceOf(Author::class, $authors['123']);
+    }
+
     public function testXmlException()
     {
         $mockJson = '<invalid xml>';

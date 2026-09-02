@@ -240,9 +240,13 @@ class ScopusApi
      * @param array $options
      * @return Abstracts[]
      */
-    public function retrieveAbstracts($scopusIds, array $options = [])
+    public function retrieveAbstracts($scopusIds, array $options = []): array
     {
-        $scopusIds = array_unique($scopusIds);
+        $scopusIds = array_values(array_unique($scopusIds));
+
+        if (!$scopusIds) {
+            return [];
+        }
 
         if (count($scopusIds) > 1) {
             $chunks = array_chunk($scopusIds, 25);
@@ -251,15 +255,11 @@ class ScopusApi
                 $abstracts = array_merge($abstracts, array_combine($chunk, $this->retrieveAbstract($chunk, $options)));
             }
             return $abstracts;
-        } else {
-            try {
-                return [
-                    $scopusIds[0] => $this->retrieveAbstract($scopusIds[0], $options),
-                ];
-            } catch (Exception $e) {
-                return [];
-            }
         }
+
+        return [
+            $scopusIds[0] => $this->retrieveAbstract($scopusIds[0], $options),
+        ];
     }
 
     /**
@@ -288,25 +288,26 @@ class ScopusApi
      * @param array $options
      * @return Author[]
      */
-    public function retrieveAuthors($authorIds, array $options = [])
+    public function retrieveAuthors($authorIds, array $options = []): array
     {
-        $scopusIds = array_unique($authorIds);
-        if (count($scopusIds) > 1) {
+        $authorIds = array_values(array_unique($authorIds));
+
+        if (!$authorIds) {
+            return [];
+        }
+
+        if (count($authorIds) > 1) {
             $chunks = array_chunk($authorIds, 25);
             $authors = [];
             foreach ($chunks as $chunk) {
                 $authors = array_merge($authors, array_combine($chunk, $this->retrieveAuthor($chunk, $options)));
             }
             return $authors;
-        } else {
-            try {
-                return [
-                    $authorIds[0] => $this->retrieveAuthor($authorIds[0], $options),
-                ];
-            } catch (Exception $e) {
-                return [];
-            }
         }
+
+        return [
+            $authorIds[0] => $this->retrieveAuthor($authorIds[0], $options),
+        ];
     }
 
     public function retrieveAffiliation($affiliationId, array $options = [])
