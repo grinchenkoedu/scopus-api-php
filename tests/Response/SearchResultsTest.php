@@ -67,7 +67,7 @@ class SearchResultsTest extends TestCase
         $this->assertNull($results->getQuery());
         $this->assertNull($results->getNextCursor());
         $this->assertNull($results->getLinks());
-        $this->assertNull($results->getEntries());
+        $this->assertSame([], $results->getEntries());
         $this->assertEquals(0, $results->countEntries());
     }
 
@@ -81,8 +81,8 @@ class SearchResultsTest extends TestCase
         $this->assertNull($entry->getCreator());
         $this->assertNull($entry->getAuthkeywords());
         $this->assertNull($entry->getLinks());
-        $this->assertNull($entry->getAuthors());
-        $this->assertNull($entry->getAffiliations());
+        $this->assertSame([], $entry->getAuthors());
+        $this->assertSame([], $entry->getAffiliations());
         $this->assertEquals(0, $entry->countAuthors());
     }
 }

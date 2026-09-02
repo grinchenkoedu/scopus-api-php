@@ -5,7 +5,7 @@ namespace Scopus\Response;
 interface IAbstract
 {
     /**
-     * @return IAuthor[]|null
+     * @return IAuthor[]
      */
-    public function getAuthors();
+    public function getAuthors(): array;
 }

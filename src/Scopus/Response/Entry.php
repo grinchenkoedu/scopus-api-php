@@ -61,7 +61,7 @@ class Entry extends AbstractCoredata implements IAbstract
         return isset($this->data['prism:coverDisplayDate']) ? $this->data['prism:coverDisplayDate'] : null;
     }
 
-    public function getAffiliations()
+    public function getAffiliations(): array
     {
         if (isset($this->data['affiliation'])) {
             return $this->affiliations ?: $this->affiliations = array_map(function ($affiliation) {
@@ -69,7 +69,7 @@ class Entry extends AbstractCoredata implements IAbstract
             }, $this->data['affiliation']);
         }
 
-        return null;
+        return [];
     }
 
     public function countAffiliations()
@@ -88,9 +88,9 @@ class Entry extends AbstractCoredata implements IAbstract
     }
 
     /**
-     * @return EntryAuthor[]|null
+     * @return EntryAuthor[]
      */
-    public function getAuthors()
+    public function getAuthors(): array
     {
         if (isset($this->data['author'])) {
             return $this->authors ?: $this->authors = array_map(function ($author) {
@@ -98,23 +98,19 @@ class Entry extends AbstractCoredata implements IAbstract
             }, $this->data['author']);
         }
 
-        return null;
+        return [];
     }
 
     /**
      * @return EntryAuthor[]
      */
-    public function getCoAuthor()
+    public function getCoAuthor(): array
     {
-        if (!$this->getAuthors()) return null;
         $matches = array_filter($this->getAuthors(), function (EntryAuthor $author) {
             return $author->getName() !== $this->getCreator();
         });
-        if ($matches) {
-            return array_values($matches);
-        }
 
-        return null;
+        return array_values($matches);
     }
 
     public function countAuthors()

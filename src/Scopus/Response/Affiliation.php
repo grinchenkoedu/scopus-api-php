@@ -40,7 +40,7 @@ class Affiliation
         return isset($this->data['affiliation-country']) ? $this->data['affiliation-country'] : null;
     }
     
-    public function getNameVariant()
+    public function getNameVariant(): array
     {
         if (isset($this->data['name-variant'])) {
             return $this->nameVariants ?: $this->nameVariants = array_map(function($nameVariant) {
@@ -48,6 +48,6 @@ class Affiliation
             }, $this->data['name-variant']);
         }
 
-        return null;
+        return [];
     }
 }

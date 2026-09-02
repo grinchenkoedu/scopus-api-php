@@ -33,7 +33,7 @@ class Abstracts implements IAbstract
     /**
      * @return AbstractAuthor[]
      */
-    public function getAuthors()
+    public function getAuthors(): array
     {
         if (isset($this->data['authors']['author'])) {
             return $this->authors ?: $this->authors = array_map(function($author) {
@@ -41,7 +41,7 @@ class Abstracts implements IAbstract
             }, $this->data['authors']['author']);
         }
 
-        return null;
+        return [];
     }
 
     /**

@@ -42,7 +42,7 @@ class AuthorProfile
         return $this->preferredName ?: $this->preferredName = new AuthorName($this->data['preferred-name']);
     }
 
-    public function getNameVariants()
+    public function getNameVariants(): array
     {
         return $this->nameVariants ?: $this->nameVariants = array_map(function ($nameVariant) {
             return new AuthorName($nameVariant);
@@ -62,7 +62,7 @@ class AuthorProfile
     }
 
     //to try
-    public function getJournalHistory()
+    public function getJournalHistory(): array
     {
         if (isset($this->data['journal-history'])) {
             return $this->journalHistory ?: $this->journalHistory = array_map(function ($journal) {
@@ -70,7 +70,7 @@ class AuthorProfile
             }, $this->data['journal-history']);
         }
 
-        return null;
+        return [];
     }
 
     protected function prepareJournalHistory($journal)

@@ -55,7 +55,7 @@ class SearchResults
     /**
      * @return Entry[]
      */
-    public function getEntries()
+    public function getEntries(): array
     {
         if (isset($this->data['entry'])) {
             return $this->entries ?: $this->entries = array_map(function ($entry) {
@@ -63,7 +63,7 @@ class SearchResults
             }, $this->data['entry']);
         }
 
-        return null;
+        return [];
     }
 
     public function countEntries()

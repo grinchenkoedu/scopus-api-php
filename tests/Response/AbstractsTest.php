@@ -70,7 +70,7 @@ class AbstractsTest extends TestCase
         $this->assertNull($abstract->getCoredata()->getTitle());
         $this->assertNull($abstract->getCoredata()->getIdentifier());
         
-        $this->assertNull($abstract->getAuthors());
+        $this->assertSame([], $abstract->getAuthors());
         $this->assertNull($abstract->getItem()->getBibrecord());
     }
 }

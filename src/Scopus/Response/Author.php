@@ -56,7 +56,7 @@ class Author
         return $this->affiliation ?: $this->affiliation = new Affiliation($this->prepareAffiliationData($this->data['affiliation-current']));
     }
 
-    public function getAffiliationHistory()
+    public function getAffiliationHistory(): array
     {
         if (isset($this->data['affiliation-history']['affiliation'])) {
             return $this->affiliation_history ?: $this->affiliation_history = array_map(function ($affiliation) {
@@ -64,10 +64,10 @@ class Author
             }, $this->data['affiliation-history']['affiliation']);
         }
 
-        return null;
+        return [];
     }
 
-    public function getSubjectAreas()
+    public function getSubjectAreas(): array
     {
         if (isset($this->data['subject-areas']['subject-area'])) {
             return $this->subject_areas ?: $this->subject_areas = array_map(function ($area) {
@@ -75,7 +75,7 @@ class Author
             }, $this->data['subject-areas']['subject-area']);
         }
 
-        return null;
+        return [];
     }
 
     public function getProfile()
