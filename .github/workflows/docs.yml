@@ -1,28 +1,29 @@
 name: Docs
 
-# Scoped to the paths that can actually cause drift. The generated output also
-# depends on the resolved dependency versions - guzzle 7 and guzzle 8 produce
-# 32 differing files - so running this on every push would go red whenever a
-# dependency published, unrelated to any change here.
+# CI is the only thing that generates docs/. That is deliberate: ApiGen lists
+# implementing classes in filesystem order without sorting them, so the same
+# source produces different output on macOS and Linux. Keeping generation on one
+# platform makes the result reproducible; regenerating by hand reintroduces the
+# churn. docs/** is not a trigger, so the commit below cannot retrigger this.
 on:
   push:
     branches: [ "master" ]
     paths:
       - 'src/**'
-      - 'docs/**'
       - 'composer.json'
       - '.github/workflows/docs.yml'
-  pull_request:
-    branches: [ "master" ]
-    paths:
-      - 'src/**'
-      - 'docs/**'
-      - 'composer.json'
-      - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: docs
+  cancel-in-progress: false
 
 jobs:
-  drift:
-    name: docs/ is up to date with src/
+  regenerate:
+    name: Regenerate API documentation
     runs-on: ubuntu-latest
 
     steps:
@@ -41,21 +42,24 @@ jobs:
     - name: Download ApiGen
       run: curl -sSfL -o apigen.phar https://github.com/ApiGen/ApiGen/releases/download/v7.0.0-alpha.6/apigen.phar
 
-    - name: Regenerate the API docs
+    - name: Regenerate
       # --workers 1 is required: the parallel scheduler crashes when ApiGen runs
-      # from a PHAR. Keep this command in step with README.md.
+      # from a PHAR.
       run: |
         php apigen.phar --workers 1 --output docs \
           --title "Scopus API for PHP" \
           --base-url "https://grinchenkoedu.github.io/scopus-api-php/" \
           src
 
-    - name: Check for drift
+    - name: Commit if it changed
       run: |
         if git diff --quiet -- docs; then
-          echo "docs/ matches src/."
+          echo "docs/ is already up to date."
           exit 0
         fi
-        echo "::error file=docs::docs/ is out of date with src/. Regenerate it (see 'Regenerating the API docs' in README.md) and commit the result."
-        git diff --stat -- docs
-        exit 1
+        git config user.name  "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add docs
+        git commit -m "docs: regenerate API documentation"
+        git push
+        echo "Regenerated docs/ and pushed."
