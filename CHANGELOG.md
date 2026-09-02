@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
 ## [1.5.0] - 2026-09-02
 
 ### Added
@@ -32,6 +34,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Getters in `Scopus\Response` return `null` for a missing key instead of raising
   `Undefined array key`; Scopus routinely omits fields.
 - Nullable parameters are declared explicitly, clearing the PHP 8.4 deprecation.
+
+## [1.4.2] - 2026-09-01
+
+Maintenance release on the `1.4.x` branch, for PHP 7.2 and 7.3, which cannot install 1.5.0.
+Same fixes as 1.5.0, cut before the PHP requirement moved to 7.4.
 
 ## [1.4.1] - 2026-09-01
 
@@ -79,3 +86,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Updated various classes (`AbstractCitations`, `Source`, etc.) for better compatibility.
+
+[Unreleased]: https://github.com/grinchenkoedu/scopus-api-php/compare/1.5.0...HEAD
+[1.5.0]: https://github.com/grinchenkoedu/scopus-api-php/compare/1.4.2...1.5.0
+[1.4.2]: https://github.com/grinchenkoedu/scopus-api-php/compare/1.4.1...1.4.2
+[1.4.1]: https://github.com/grinchenkoedu/scopus-api-php/compare/1.4.0...1.4.1
+[1.4.0]: https://github.com/grinchenkoedu/scopus-api-php/compare/1.3.0...1.4.0
+[1.3.0]: https://github.com/grinchenkoedu/scopus-api-php/compare/1.2.0...1.3.0
+[1.2.0]: https://github.com/grinchenkoedu/scopus-api-php/compare/1.1.0...1.2.0
+[1.1.0]: https://github.com/grinchenkoedu/scopus-api-php/releases/tag/1.1.0
