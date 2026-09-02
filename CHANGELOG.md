@@ -7,6 +7,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **Breaking:** the 13 getters that yield collections return `[]` instead of `null` when the field
+  is absent, and declare `: array`. An empty Scopus result is routine, so iterating no longer
+  needs a null guard on the common path. Affects `SearchResults::getEntries()`,
+  `Entry::getAuthors()`/`getAffiliations()`/`getCoAuthor()`, `Abstracts::getAuthors()`,
+  `CiteInfo::getAuthors()`, `Author::getAffiliationHistory()`/`getSubjectAreas()`,
+  `AuthorProfile::getNameVariants()`/`getJournalHistory()`, `Affiliation::getNameVariant()`,
+  `AbstractCitations::getIdentifiers()`/`getCiteInfos()` and `IAbstract::getAuthors()`.
+- **Breaking:** `CitationCount::getStatus()` no longer declares `: bool`; it returns the raw
+  status string, or `null` when absent. The bool coerced Scopus's string, so `found` and
+  `NOT_FOUND` both came back as `true`.
+- **Breaking:** `ScopusApi::retrieveAbstracts()` and `retrieveAuthors()` let exceptions propagate
+  instead of catching `Exception` and returning `[]`, which made a network failure or an invalid
+  API key indistinguishable from a document that was not found. Both now declare `: array`.
+
+### Added
+- `CitationCount::isFound()` — the boolean question `getStatus()` used to answer incorrectly.
+
+### Fixed
+- `retrieveAbstracts()` and `retrieveAuthors()` return `[]` for an empty id list instead of
+  reaching an undefined index.
+- `retrieveAuthors()` deduplicated ids to choose its branch but then chunked the original list,
+  so duplicate ids reached `array_combine()` with mismatched counts and raised a `ValueError`.
+
+### Upgrading
+
+```php
+// Collections
+if ($results->getEntries() === null) {}   // before
+if (!$results->getEntries()) {}           // after
+
+// Citation status
+$count->getStatus() === true              // before - true for NOT_FOUND too
+$count->isFound()                         // after
+
+// Bulk retrieval no longer hides failures
+try {
+    $api->retrieveAbstracts($ids);
+} catch (\Exception $e) {
+    // previously returned [] and told you nothing
+}
+```
+
+
 ## [1.5.0] - 2026-09-02
 
 ### Added
