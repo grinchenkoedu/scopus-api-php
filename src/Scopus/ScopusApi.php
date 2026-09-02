@@ -252,7 +252,9 @@ class ScopusApi
             $chunks = array_chunk($scopusIds, 25);
             $abstracts = [];
             foreach ($chunks as $chunk) {
-                $abstracts = array_merge($abstracts, array_combine($chunk, $this->keyable($this->retrieveAbstract($chunk, $options), $chunk)));
+                // Union, not array_merge: array_merge renumbers integer keys, which
+                // would silently drop numeric scopus ids from the result.
+                $abstracts += array_combine($chunk, $this->keyable($this->retrieveAbstract($chunk, $options), $chunk));
             }
             return $abstracts;
         }
@@ -300,7 +302,7 @@ class ScopusApi
             $chunks = array_chunk($authorIds, 25);
             $authors = [];
             foreach ($chunks as $chunk) {
-                $authors = array_merge($authors, array_combine($chunk, $this->keyable($this->retrieveAuthor($chunk, $options), $chunk)));
+                $authors += array_combine($chunk, $this->keyable($this->retrieveAuthor($chunk, $options), $chunk));
             }
             return $authors;
         }
