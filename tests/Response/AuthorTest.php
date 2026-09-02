@@ -5,6 +5,8 @@ namespace Scopus\Tests\Response;
 use Scopus\Tests\TestCase;
 use Scopus\Response\Author;
 use Scopus\Response\AuthorProfile;
+use Scopus\Response\Affiliation;
+use Scopus\Response\AuthorName;
 
 class AuthorTest extends TestCase
 {
@@ -47,6 +49,26 @@ class AuthorTest extends TestCase
         $this->assertNull($author->getAffiliation());
         $this->assertSame([], $author->getAffiliationHistory());
         $this->assertSame([], $author->getSubjectAreas());
+    }
+
+    public function testNameVariantCollections()
+    {
+        $affiliation = new Affiliation([
+            'name-variant' => [['$' => 'Univ of Testing'], ['$' => 'Testing University']],
+        ]);
+        $this->assertSame(['Univ of Testing', 'Testing University'], $affiliation->getNameVariant());
+        $this->assertSame([], (new Affiliation([]))->getNameVariant());
+
+        $profile = new AuthorProfile([
+            'name-variant' => [['indexed-name' => 'Doe J.'], ['indexed-name' => 'Doe Jane']],
+        ]);
+        $variants = $profile->getNameVariants();
+        $this->assertCount(2, $variants);
+        $this->assertInstanceOf(AuthorName::class, $variants[0]);
+        $this->assertSame('Doe J.', $variants[0]->getIndexedName());
+
+        // No name-variant at all still yields an array, not null.
+        $this->assertSame([], (new AuthorProfile([]))->getNameVariants());
     }
 
     public function testAuthorProfileGettersWithSparseData()

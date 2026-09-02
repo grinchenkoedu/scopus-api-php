@@ -71,6 +71,29 @@ class SearchResultsTest extends TestCase
         $this->assertEquals(0, $results->countEntries());
     }
 
+    public function testEntryCoAuthors()
+    {
+        $results = new SearchResults(['entry' => [[
+            'dc:creator' => 'Smith, J.',
+            'author' => [
+                ['authname' => 'Smith, J.'],
+                ['authname' => 'Doe, J.'],
+                ['authname' => 'Roe, R.'],
+            ],
+        ]]]);
+
+        $entry = $results->getEntries()[0];
+        $coAuthors = $entry->getCoAuthor();
+
+        // The creator is filtered out, and the keys are reindexed from zero.
+        $this->assertCount(2, $coAuthors);
+        $this->assertSame([0, 1], array_keys($coAuthors));
+        $this->assertSame('Doe, J.', $coAuthors[0]->getName());
+
+        // No authors at all now yields an array rather than null.
+        $this->assertSame([], (new SearchResults(['entry' => [[]]]))->getEntries()[0]->getCoAuthor());
+    }
+
     public function testEntryGettersWithSparseData()
     {
         $results = new SearchResults(['entry' => [[]]]);
