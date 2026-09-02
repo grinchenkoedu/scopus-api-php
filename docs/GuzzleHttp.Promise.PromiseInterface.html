@@ -5,9 +5,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<meta name="robots" content="noindex">
-	<title>Interface GuzzleHttp\Promise\PromiseInterface |  API</title>
-	<link rel="stylesheet" href="assets/main.css">
-	<script src="assets/main.js" defer></script>
+	<title>Interface GuzzleHttp\Promise\PromiseInterface | Scopus API for PHP API</title>
+	<link rel="stylesheet" href="https://grinchenkoedu.github.io/scopus-api-php/assets/main.css">
+	<script src="https://grinchenkoedu.github.io/scopus-api-php/assets/main.js" defer></script>
 </head>
 
 <body class="layout">
@@ -17,24 +17,24 @@
 				<h3>Namespaces</h3>
 	<ul>
 			<li class="menuGroup-item active">
-				<a href="namespace-GuzzleHttp.html">GuzzleHttp</a>
+				<a href="https://grinchenkoedu.github.io/scopus-api-php/namespace-GuzzleHttp.html">GuzzleHttp</a>
 	<ul>
 			<li class="menuGroup-item active">
-				<a href="namespace-GuzzleHttp.Promise.html">Promise</a>
+				<a href="https://grinchenkoedu.github.io/scopus-api-php/namespace-GuzzleHttp.Promise.html">Promise</a>
 			</li>
 	</ul>
 			</li>
 			<li class="menuGroup-item">
-				<a href="namespace-Scopus.html">Scopus</a>
+				<a href="https://grinchenkoedu.github.io/scopus-api-php/namespace-Scopus.html">Scopus</a>
 	<ul>
 			<li class="menuGroup-item">
-				<a href="namespace-Scopus.Exception.html">Exception</a>
+				<a href="https://grinchenkoedu.github.io/scopus-api-php/namespace-Scopus.Exception.html">Exception</a>
 			</li>
 			<li class="menuGroup-item">
-				<a href="namespace-Scopus.Response.html">Response</a>
+				<a href="https://grinchenkoedu.github.io/scopus-api-php/namespace-Scopus.Response.html">Response</a>
 			</li>
 			<li class="menuGroup-item">
-				<a href="namespace-Scopus.Util.html">Util</a>
+				<a href="https://grinchenkoedu.github.io/scopus-api-php/namespace-Scopus.Util.html">Util</a>
 			</li>
 	</ul>
 			</li>
@@ -45,7 +45,7 @@
 			<h3>Interfaces</h3>
 			<ul>
 					<li class="active">
-						<a href="GuzzleHttp.Promise.PromiseInterface.html">
+						<a href="https://grinchenkoedu.github.io/scopus-api-php/GuzzleHttp.Promise.PromiseInterface.html">
 							PromiseInterface
 						</a>
 					</li>
@@ -60,20 +60,20 @@
 		<div class="navbar-left">
 			<ul class="navbar-links">
 				<li>
-					<a href="index.html">Overview</a>
+					<a href="https://grinchenkoedu.github.io/scopus-api-php/index.html">Overview</a>
 				</li>
 				<li>
 					
-						<a href="namespace-GuzzleHttp.Promise.html">Namespace</a>
+						<a href="https://grinchenkoedu.github.io/scopus-api-php/namespace-GuzzleHttp.Promise.html">Namespace</a>
 					
 				</li>
-<li class="active"><a href="GuzzleHttp.Promise.PromiseInterface.html">Interface</a></li>				<li>
-					<a href="tree.html">Tree</a>
+<li class="active"><a href="https://grinchenkoedu.github.io/scopus-api-php/GuzzleHttp.Promise.PromiseInterface.html">Interface</a></li>				<li>
+					<a href="https://grinchenkoedu.github.io/scopus-api-php/tree.html">Tree</a>
 				</li>
 			</ul>
 		</div>
 		<div class="navbar-right">
-	<div class="search" data-elements="assets/elements.js">
+	<div class="search" data-elements="https://grinchenkoedu.github.io/scopus-api-php/assets/elements.js">
 		<input class="search-input" placeholder="Search class, function or namespace" autofocus>
 		<ul class="search-results"></ul>
 	</div>
@@ -83,9 +83,10 @@
 
 		<div class="layout-content">
 		<h1>
-			Interface <a href="namespace-GuzzleHttp.html">GuzzleHttp</a>\<a href="namespace-GuzzleHttp.Promise.html">Promise</a>\<a href="GuzzleHttp.Promise.PromiseInterface.html">PromiseInterface</a>
+			Interface <a href="https://grinchenkoedu.github.io/scopus-api-php/namespace-GuzzleHttp.html">GuzzleHttp</a>\<a href="https://grinchenkoedu.github.io/scopus-api-php/namespace-GuzzleHttp.Promise.html">Promise</a>\<a href="https://grinchenkoedu.github.io/scopus-api-php/GuzzleHttp.Promise.PromiseInterface.html">PromiseInterface</a>
 		</h1>
 
+			<h2><code>&lt;<span title="">TValue</span> = mixed, <span title="">TReason</span> = mixed&gt;</code></h2>
 
 	<table class="classLikeSignatureTable">
 
@@ -121,7 +122,10 @@ the reason why the promise cannot be fulfilled.</p>
 			</td>
 
 			<td class="table-cell">
-				<code>then(<span>callable <var>$onFulfilled</var> = <span class="php-kw">null</span></span>, <span>callable <var>$onRejected</var> = <span class="php-kw">null</span></span>): <b><span class="active" title="GuzzleHttp\Promise\PromiseInterface">PromiseInterface</span></b></code>
+				<code>then&lt;<span title="">TFulfilledValue</span> = never, <span title="">TFulfilledReason</span> = never, <span title="">TRejectedValue</span> = never, <span title="">TRejectedReason</span> = never&gt;(
+	<span>(callable(TValue):&nbsp;(TFulfilledValue|<b><span class="active" title="GuzzleHttp\Promise\PromiseInterface">PromiseInterface</span></b>&lt;TFulfilledValue, TFulfilledReason&gt;))|null <var>$onFulfilled</var> = <span class="php-kw">null</span></span>,
+	<span>(callable(TReason):&nbsp;(TRejectedValue|<b><span class="active" title="GuzzleHttp\Promise\PromiseInterface">PromiseInterface</span></b>&lt;TRejectedValue, TRejectedReason&gt;))|null <var>$onRejected</var> = <span class="php-kw">null</span></span>,
+): <b><span class="active" title="GuzzleHttp\Promise\PromiseInterface">PromiseInterface</span></b>&lt;($onFulfilled is null&nbsp;?&nbsp;TValue&nbsp;:&nbsp;TFulfilledValue)|($onRejected is null&nbsp;?&nbsp;never&nbsp;:&nbsp;TRejectedValue), ($onFulfilled is null&nbsp;?&nbsp;never&nbsp;:&nbsp;TFulfilledReason|<a href="https://grinchenkoedu.github.io/scopus-api-php/Throwable.html"><span title="Throwable">Throwable</span></a>)|($onRejected is null&nbsp;?&nbsp;TReason&nbsp;:&nbsp;TRejectedReason|<a href="https://grinchenkoedu.github.io/scopus-api-php/Throwable.html"><span title="Throwable">Throwable</span></a>)&gt;</code>
 
 
 	<div class="expandable-collapsedView">
@@ -167,7 +171,9 @@ a new promise resolving to the return value of the called handler.</p>
 			</td>
 
 			<td class="table-cell">
-				<code>otherwise(<span>callable <var>$onRejected</var></span>): <b><span class="active" title="GuzzleHttp\Promise\PromiseInterface">PromiseInterface</span></b></code>
+				<code>otherwise&lt;<span title="">TRejectedValue</span> = never, <span title="">TRejectedReason</span> = never&gt;(
+	<span>callable(TReason):&nbsp;(TRejectedValue|<b><span class="active" title="GuzzleHttp\Promise\PromiseInterface">PromiseInterface</span></b>&lt;TRejectedValue, TRejectedReason&gt;) <var>$onRejected</var></span>,
+): <b><span class="active" title="GuzzleHttp\Promise\PromiseInterface">PromiseInterface</span></b>&lt;TValue|TRejectedValue, TRejectedReason|<a href="https://grinchenkoedu.github.io/scopus-api-php/Throwable.html"><span title="Throwable">Throwable</span></a>&gt;</code>
 
 
 	<div class="expandable-collapsedView">
@@ -210,7 +216,7 @@ fulfilled.</p>
 			</td>
 
 			<td class="table-cell">
-				<code>getState(): string</code>
+				<code>getState(): <b><span class="active" title="GuzzleHttp\Promise\PromiseInterface">self</span></b>::<a href="https://grinchenkoedu.github.io/scopus-api-php/GuzzleHttp.Promise.PromiseInterface.html#PENDING">PENDING</a>|<b><span class="active" title="GuzzleHttp\Promise\PromiseInterface">self</span></b>::<a href="https://grinchenkoedu.github.io/scopus-api-php/GuzzleHttp.Promise.PromiseInterface.html#FULFILLED">FULFILLED</a>|<b><span class="active" title="GuzzleHttp\Promise\PromiseInterface">self</span></b>::<a href="https://grinchenkoedu.github.io/scopus-api-php/GuzzleHttp.Promise.PromiseInterface.html#REJECTED">REJECTED</a></code>
 
 
 	<div class="expandable-collapsedView">
@@ -221,6 +227,12 @@ fulfilled.</p>
 	<div class="description"><p>Get the state of the promise (&quot;pending&quot;, &quot;rejected&quot;, or &quot;fulfilled&quot;).</p>
 <p>The three states can be checked against the constants defined on
 PromiseInterface: PENDING, FULFILLED, and REJECTED.</p>
+<p>The state describes how this promise was settled, not the eventual
+outcome: a promise that was resolved with another promise, directly or
+by returning one from a then() handler, reports FULFILLED while the
+inner promise may still be pending, and wait() can still throw if the
+inner promise rejects. Poll the state only on promises settled with
+plain values, or call wait() first.</p>
 </div>
 
 
@@ -243,15 +255,15 @@ PromiseInterface: PENDING, FULFILLED, and REJECTED.</p>
 			</td>
 
 			<td class="table-cell">
-				<code>resolve(<span>mixed <var>$value</var></span>)</code>
+				<code>resolve(<span>TValue|<b><span class="active" title="GuzzleHttp\Promise\PromiseInterface">PromiseInterface</span></b>&lt;TValue, TReason&gt;|null <var>$value</var> = <span class="php-kw">null</span></span>): void</code>
 
 
 	<div class="expandable-collapsedView">
-		Resolve the promise with the given value.
+		Resolve the promise with the given value, or with null if no value is given.
 	</div>
 
 	<div class="expandable-expandedView">
-	<div class="description"><p>Resolve the promise with the given value.</p>
+	<div class="description"><p>Resolve the promise with the given value, or with null if no value is given.</p>
 </div>
 
 
@@ -259,8 +271,9 @@ PromiseInterface: PENDING, FULFILLED, and REJECTED.</p>
 							<h4>Throws</h4>
 							<table>
 									<tr>
-										<td><code><a href="RuntimeException.html"><span>RuntimeException</span></a></code>&nbsp;</td>
-										<td><p>if the promise is already resolved.</p>
+										<td><code><a href="https://grinchenkoedu.github.io/scopus-api-php/LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>if the promise is already settled with a
+conflicting resolution.</p>
 </td>
 									</tr>
 							</table>
@@ -282,7 +295,7 @@ PromiseInterface: PENDING, FULFILLED, and REJECTED.</p>
 			</td>
 
 			<td class="table-cell">
-				<code>reject(<span>mixed <var>$reason</var></span>)</code>
+				<code>reject(<span>TReason <var>$reason</var></span>): void</code>
 
 
 	<div class="expandable-collapsedView">
@@ -298,8 +311,9 @@ PromiseInterface: PENDING, FULFILLED, and REJECTED.</p>
 							<h4>Throws</h4>
 							<table>
 									<tr>
-										<td><code><a href="RuntimeException.html"><span>RuntimeException</span></a></code>&nbsp;</td>
-										<td><p>if the promise is already resolved.</p>
+										<td><code><a href="https://grinchenkoedu.github.io/scopus-api-php/LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><p>if the promise is already settled with a
+conflicting resolution.</p>
 </td>
 									</tr>
 							</table>
@@ -321,7 +335,7 @@ PromiseInterface: PENDING, FULFILLED, and REJECTED.</p>
 			</td>
 
 			<td class="table-cell">
-				<code>cancel()</code>
+				<code>cancel(): void</code>
 
 
 	<div class="expandable-collapsedView">
@@ -352,7 +366,7 @@ PromiseInterface: PENDING, FULFILLED, and REJECTED.</p>
 			</td>
 
 			<td class="table-cell">
-				<code>wait(<span>bool <var>$unwrap</var> = <span class="php-kw">true</span></span>): mixed</code>
+				<code>wait(<span>bool <var>$unwrap</var> = <span class="php-kw">true</span></span>): ($unwrap is true&nbsp;?&nbsp;TValue&nbsp;:&nbsp;null)</code>
 
 
 	<div class="expandable-collapsedView">
@@ -371,7 +385,7 @@ returning the resolved value or throwing the rejected exception.</p>
 							<h4>Throws</h4>
 							<table>
 									<tr>
-										<td><code><a href="LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
+										<td><code><a href="https://grinchenkoedu.github.io/scopus-api-php/LogicException.html"><span>LogicException</span></a></code>&nbsp;</td>
 										<td><p>if the promise has no wait function or if the
 promise does not settle after waiting.</p>
 </td>
@@ -455,7 +469,7 @@ promise does not settle after waiting.</p>
 		</div>
 
 		<div class="layout-footer">
-			 API documentation generated by <a href="https://www.apigen.org">ApiGen dev-master</a>
+			Scopus API for PHP API documentation generated by <a href="https://www.apigen.org">ApiGen v7.0.0-alpha.6</a>
 		</div>
 	</div>
 
