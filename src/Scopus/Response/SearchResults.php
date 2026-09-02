@@ -68,6 +68,6 @@ class SearchResults
 
     public function countEntries()
     {
-        return isset($this->data['entry']) ? count($this->data['entry']) : 0;
+        return count($this->getEntries());
     }
 }

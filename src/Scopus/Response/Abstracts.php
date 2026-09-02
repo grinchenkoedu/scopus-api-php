@@ -49,7 +49,7 @@ class Abstracts implements IAbstract
      */
     public function countAuthors()
     {
-        return isset($this->data['authors']['author']) ? count($this->data['authors']['author']) : 0;
+        return count($this->getAuthors());
     }
     
     public function getItem()

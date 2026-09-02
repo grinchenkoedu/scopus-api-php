@@ -74,7 +74,7 @@ class Entry extends AbstractCoredata implements IAbstract
 
     public function countAffiliations()
     {
-        return isset($this->data['affiliation']) ? count($this->data['affiliation']) : 0;
+        return count($this->getAffiliations());
     }
 
     public function getSubtype()
@@ -115,7 +115,7 @@ class Entry extends AbstractCoredata implements IAbstract
 
     public function countAuthors()
     {
-        return isset($this->data['author']) ? count($this->data['author']) : 0;
+        return count($this->getAuthors());
     }
 
     public function getAuthkeywords()
