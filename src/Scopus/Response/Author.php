@@ -63,6 +63,8 @@ class Author
                 return new Affiliation($this->prepareAffiliationData($affiliation));
             }, $this->data['affiliation-history']['affiliation']);
         }
+
+        return null;
     }
 
     public function getSubjectAreas()
@@ -72,6 +74,8 @@ class Author
                 return new AuthorSubjectArea($this->prepareSubjectArea($area));
             }, $this->data['subject-areas']['subject-area']);
         }
+
+        return null;
     }
 
     public function getProfile()
@@ -79,6 +83,8 @@ class Author
         if (isset($this->data['author-profile'])) {
             return $this->profile ?: $this->profile = new AuthorProfile($this->data['author-profile']);
         }
+
+        return null;
     }
 
     protected function prepareAffiliationData($affiliation)

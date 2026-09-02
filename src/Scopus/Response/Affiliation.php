@@ -47,5 +47,7 @@ class Affiliation
                 return $nameVariant['$'];
             }, $this->data['name-variant']);
         }
+
+        return null;
     }
 }

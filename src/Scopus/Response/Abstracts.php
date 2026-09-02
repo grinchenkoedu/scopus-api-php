@@ -40,6 +40,8 @@ class Abstracts implements IAbstract
                 return new AbstractAuthor($author);
             }, $this->data['authors']['author']);
         }
+
+        return null;
     }
 
     /**

@@ -38,6 +38,8 @@ class CiteInfo extends AbstractCoredata implements IAbstract
                 return new EntryAuthor($author);
             }, $this->data['author']);
         }
+
+        return null;
     }
 
     public function getCitationType()

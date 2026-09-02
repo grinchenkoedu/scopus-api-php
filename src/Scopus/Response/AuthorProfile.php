@@ -69,6 +69,8 @@ class AuthorProfile
                 return new Journal($this->prepareJournalHistory($journal));
             }, $this->data['journal-history']);
         }
+
+        return null;
     }
 
     protected function prepareJournalHistory($journal)

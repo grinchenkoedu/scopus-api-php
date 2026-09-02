@@ -28,6 +28,8 @@ class AuthorCoredata
         if (substr($identifier, 0, 10) === 'AUTHOR_ID:') {
             return explode(':', $identifier, 2)[1];
         }
+
+        return null;
     }
 
     public function getEID()

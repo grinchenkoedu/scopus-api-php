@@ -26,6 +26,8 @@ class BibrecordHead
         if (isset($this->data['author-group'])) {
             return $this->authorGroup ?: $this->authorGroup = new AuthorGroup($this->data['author-group']);
         }
+
+        return null;
     }
     
     public function getCorrespondence()
@@ -33,6 +35,8 @@ class BibrecordHead
         if (isset($this->data['correspondence'])) {
             return $this->correspondence ?: $this->correspondence = new Correspondence($this->data['correspondence']);
         }
+
+        return null;
     }
     
     public function getSource()
@@ -40,5 +44,7 @@ class BibrecordHead
         if (isset($this->data['source'])) {
             return $this->source ?: $this->source = new Source($this->data['source']);
         }
+
+        return null;
     }
 }

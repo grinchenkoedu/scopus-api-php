@@ -20,5 +20,7 @@ class Correspondence
         if (isset($this->data['person'])) {
             return $this->person ?: $this->person = new CorrespondencePerson($this->data['person']);
         }
+
+        return null;
     }
 }

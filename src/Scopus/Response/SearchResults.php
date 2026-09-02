@@ -62,6 +62,8 @@ class SearchResults
                 return new Entry($entry);
             }, $this->data['entry']);
         }
+
+        return null;
     }
 
     public function countEntries()

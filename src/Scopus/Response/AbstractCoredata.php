@@ -28,6 +28,8 @@ class AbstractCoredata
         if (substr($identifier, 0, 10) === 'SCOPUS_ID:') {
             return explode(':', $identifier, 2)[1];
         }
+
+        return null;
     }
 
     public function getEid()
@@ -107,6 +109,8 @@ class AbstractCoredata
         if ($pageRange) {
             return explode('-', $pageRange)[0];
         }
+
+        return null;
     }
 
     public function getEndPage()
@@ -118,6 +122,8 @@ class AbstractCoredata
                 return $startEndPage[1];
             }
         }
+
+        return null;
     }
 
     public function getIssn()

@@ -52,6 +52,8 @@ class Entry extends AbstractCoredata implements IAbstract
         if ($matches) {
             return array_values($matches)[0];
         }
+
+        return null;
     }
 
     public function getCoverDisplayDate()
@@ -66,6 +68,8 @@ class Entry extends AbstractCoredata implements IAbstract
                 return new Affiliation($affiliation);
             }, $this->data['affiliation']);
         }
+
+        return null;
     }
 
     public function countAffiliations()
@@ -93,6 +97,8 @@ class Entry extends AbstractCoredata implements IAbstract
                 return new EntryAuthor($author);
             }, $this->data['author']);
         }
+
+        return null;
     }
 
     /**
@@ -107,6 +113,8 @@ class Entry extends AbstractCoredata implements IAbstract
         if ($matches) {
             return array_values($matches);
         }
+
+        return null;
     }
 
     public function countAuthors()
@@ -150,6 +158,8 @@ class Entry extends AbstractCoredata implements IAbstract
         if (substr($identifier, 0, 10) === 'AUTHOR_ID:') {
             return explode(':', $identifier, 2)[1];
         }
+
+        return null;
     }
 
     public function isEmpty()
