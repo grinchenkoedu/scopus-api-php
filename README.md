@@ -119,6 +119,11 @@ on Linux. Running it in one place keeps the result reproducible.
 
 See [CHANGELOG.md](CHANGELOG.md) for a list of changes, and [UPGRADING.md](UPGRADING.md) for migration notes between major versions.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). AI-assisted contributions are welcome; unit tests are
+mandatory, and the contributor who opens the pull request is responsible for every line in it.
+
 ## Contributors
 
 Thanks to all the contributors who have helped build and maintain this package:

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `CONTRIBUTING.md` — the bar for AI-assisted contributions, the mandatory review-and-test steps
+  before opening a pull request, and the project's conventions.
+
+
 ## [2.0.0] - 2026-09-03
 
 ### Changed
