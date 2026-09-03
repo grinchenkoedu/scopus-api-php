@@ -21,11 +21,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Breaking:** `ScopusApi::retrieveAbstracts()` and `retrieveAuthors()` let exceptions propagate
   instead of catching `Exception` and returning `[]`, which made a network failure or an invalid
   API key indistinguishable from a document that was not found. Both now declare `: array`.
+- When Scopus returns fewer documents than were requested, `retrieveAbstracts()` and
+  `retrieveAuthors()` now throw an `Exception` naming the counts and the ids, instead of failing
+  inside `array_combine()` — a `ValueError` on PHP 8, a `TypeError` on 7.4.
+- `countAuthors()`, `countAffiliations()` and `countEntries()` count their matching getter's
+  result rather than the raw payload, so the two cannot disagree on a malformed response.
 
 ### Added
 - `CitationCount::isFound()` — the boolean question `getStatus()` used to answer incorrectly.
 
 ### Fixed
+- Bulk requests whose id count leaves a remainder of one — 26 ids, 51, 76 — crashed. The final
+  chunk holds a single id, which Scopus answers with a single-document response rather than a
+  list, so `array_combine()` received an object. This depended only on how many ids were passed,
+  not on the data.
+- `retrieveAbstracts()` and `retrieveAuthors()` promise a result keyed by id, but the chunked path
+  used `array_merge()`, which renumbers integer keys: `retrieveAbstracts([1, 2, 3])` came back
+  keyed `0, 1, 2`. String ids were unaffected, which is why it went unnoticed.
 - `retrieveAbstracts()` and `retrieveAuthors()` return `[]` for an empty id list instead of
   reaching an undefined index.
 - `retrieveAuthors()` deduplicated ids to choose its branch but then chunked the original list,
