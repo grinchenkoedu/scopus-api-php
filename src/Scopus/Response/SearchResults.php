@@ -49,25 +49,25 @@ class SearchResults
             return null;
         }
 
-        return $this->links ?: $this->links = new SearchLinks($this->data['link']);
+        return $this->links ?? $this->links = new SearchLinks($this->data['link']);
     }
 
     /**
      * @return Entry[]
      */
-    public function getEntries()
+    public function getEntries(): array
     {
         if (isset($this->data['entry'])) {
-            return $this->entries ?: $this->entries = array_map(function ($entry) {
+            return $this->entries ?? $this->entries = array_map(function ($entry) {
                 return new Entry($entry);
             }, $this->data['entry']);
         }
 
-        return null;
+        return [];
     }
 
     public function countEntries()
     {
-        return isset($this->data['entry']) ? count($this->data['entry']) : 0;
+        return count($this->getEntries());
     }
 }

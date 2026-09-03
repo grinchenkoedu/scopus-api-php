@@ -39,12 +39,12 @@ class AuthorProfile
             return null;
         }
 
-        return $this->preferredName ?: $this->preferredName = new AuthorName($this->data['preferred-name']);
+        return $this->preferredName ?? $this->preferredName = new AuthorName($this->data['preferred-name']);
     }
 
-    public function getNameVariants()
+    public function getNameVariants(): array
     {
-        return $this->nameVariants ?: $this->nameVariants = array_map(function ($nameVariant) {
+        return $this->nameVariants ?? $this->nameVariants = array_map(function ($nameVariant) {
             return new AuthorName($nameVariant);
         }, isset($this->data['name-variant']) ?
             isset($this->data['name-variant']['indexed-name']) ? [$this->data['name-variant']] : $this->data['name-variant'] : []);
@@ -62,15 +62,15 @@ class AuthorProfile
     }
 
     //to try
-    public function getJournalHistory()
+    public function getJournalHistory(): array
     {
         if (isset($this->data['journal-history'])) {
-            return $this->journalHistory ?: $this->journalHistory = array_map(function ($journal) {
+            return $this->journalHistory ?? $this->journalHistory = array_map(function ($journal) {
                 return new Journal($this->prepareJournalHistory($journal));
             }, $this->data['journal-history']);
         }
 
-        return null;
+        return [];
     }
 
     protected function prepareJournalHistory($journal)
@@ -87,7 +87,7 @@ class AuthorProfile
         }
 
         $affiliation = (array_key_exists(0, $this->data['affiliation-current']['affiliation'])) ? $this->data['affiliation-current']['affiliation'][0] : $this->data['affiliation-current']['affiliation'];
-        return $this->affiliationCurrent ?: $this->affiliationCurrent = new AuthorAffiliation($affiliation);
+        return $this->affiliationCurrent ?? $this->affiliationCurrent = new AuthorAffiliation($affiliation);
     }
 
 

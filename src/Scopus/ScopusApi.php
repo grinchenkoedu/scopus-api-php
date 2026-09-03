@@ -240,26 +240,28 @@ class ScopusApi
      * @param array $options
      * @return Abstracts[]
      */
-    public function retrieveAbstracts($scopusIds, array $options = [])
+    public function retrieveAbstracts($scopusIds, array $options = []): array
     {
-        $scopusIds = array_unique($scopusIds);
+        $scopusIds = array_values(array_unique($scopusIds));
+
+        if (!$scopusIds) {
+            return [];
+        }
 
         if (count($scopusIds) > 1) {
             $chunks = array_chunk($scopusIds, 25);
             $abstracts = [];
             foreach ($chunks as $chunk) {
-                $abstracts = array_merge($abstracts, array_combine($chunk, $this->retrieveAbstract($chunk, $options)));
+                // Union, not array_merge: array_merge renumbers integer keys, which
+                // would silently drop numeric scopus ids from the result.
+                $abstracts += array_combine($chunk, $this->keyable($this->retrieveAbstract($chunk, $options), $chunk));
             }
             return $abstracts;
-        } else {
-            try {
-                return [
-                    $scopusIds[0] => $this->retrieveAbstract($scopusIds[0], $options),
-                ];
-            } catch (Exception $e) {
-                return [];
-            }
         }
+
+        return [
+            $scopusIds[0] => $this->retrieveAbstract($scopusIds[0], $options),
+        ];
     }
 
     /**
@@ -288,25 +290,54 @@ class ScopusApi
      * @param array $options
      * @return Author[]
      */
-    public function retrieveAuthors($authorIds, array $options = [])
+    public function retrieveAuthors($authorIds, array $options = []): array
     {
-        $scopusIds = array_unique($authorIds);
-        if (count($scopusIds) > 1) {
+        $authorIds = array_values(array_unique($authorIds));
+
+        if (!$authorIds) {
+            return [];
+        }
+
+        if (count($authorIds) > 1) {
             $chunks = array_chunk($authorIds, 25);
             $authors = [];
             foreach ($chunks as $chunk) {
-                $authors = array_merge($authors, array_combine($chunk, $this->retrieveAuthor($chunk, $options)));
+                $authors += array_combine($chunk, $this->keyable($this->retrieveAuthor($chunk, $options), $chunk));
             }
             return $authors;
-        } else {
-            try {
-                return [
-                    $authorIds[0] => $this->retrieveAuthor($authorIds[0], $options),
-                ];
-            } catch (Exception $e) {
-                return [];
-            }
         }
+
+        return [
+            $authorIds[0] => $this->retrieveAuthor($authorIds[0], $options),
+        ];
+    }
+
+    /**
+     * A chunk of one id gets a single-document response rather than a list, and Scopus may
+     * return fewer documents than were asked for. Either way array_combine() would fail, so
+     * normalise the shape and refuse to key results we cannot key correctly.
+     *
+     * @param mixed $retrieved
+     * @param array $chunk
+     *
+     * @return array
+     *
+     * @throws Exception
+     */
+    private function keyable($retrieved, array $chunk): array
+    {
+        $retrieved = is_array($retrieved) ? $retrieved : [$retrieved];
+
+        if (count($retrieved) !== count($chunk)) {
+            throw new Exception(sprintf(
+                'Scopus returned %d of the %d requested documents (%s), so results cannot be keyed by id.',
+                count($retrieved),
+                count($chunk),
+                implode(',', $chunk)
+            ));
+        }
+
+        return $retrieved;
     }
 
     public function retrieveAffiliation($affiliationId, array $options = [])

@@ -22,9 +22,19 @@ class CitationCount
         $this->data = $data;
     }
 
-    public function getStatus(): bool
+    /**
+     * The raw status Scopus reported for this document, e.g. "found".
+     *
+     * @return string|null
+     */
+    public function getStatus()
     {
-        return isset($this->data['@status']) ? (bool) $this->data['@status'] : false;
+        return isset($this->data['@status']) ? $this->data['@status'] : null;
+    }
+
+    public function isFound(): bool
+    {
+        return isset($this->data['@status']) && $this->data['@status'] === 'found';
     }
 
     public function getIdentifier()
@@ -73,6 +83,6 @@ class CitationCount
             return null;
         }
 
-        return $this->links ?: $this->links = new CitationCountLinks($this->data['link']);
+        return $this->links ?? $this->links = new CitationCountLinks($this->data['link']);
     }
 }

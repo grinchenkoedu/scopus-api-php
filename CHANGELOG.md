@@ -7,6 +7,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **Breaking:** the 13 getters that yield collections return `[]` instead of `null` when the field
+  is absent, and declare `: array`. An empty Scopus result is routine, so iterating no longer
+  needs a null guard on the common path. Affects `SearchResults::getEntries()`,
+  `Entry::getAuthors()`/`getAffiliations()`/`getCoAuthor()`, `Abstracts::getAuthors()`,
+  `CiteInfo::getAuthors()`, `Author::getAffiliationHistory()`/`getSubjectAreas()`,
+  `AuthorProfile::getNameVariants()`/`getJournalHistory()`, `Affiliation::getNameVariant()`,
+  `AbstractCitations::getIdentifiers()`/`getCiteInfos()` and `IAbstract::getAuthors()`.
+- **Breaking:** `CitationCount::getStatus()` no longer declares `: bool`; it returns the raw
+  status string, or `null` when absent. The bool coerced Scopus's string, so `found` and
+  `NOT_FOUND` both came back as `true`.
+- **Breaking:** `ScopusApi::retrieveAbstracts()` and `retrieveAuthors()` let exceptions propagate
+  instead of catching `Exception` and returning `[]`, which made a network failure or an invalid
+  API key indistinguishable from a document that was not found. Both now declare `: array`.
+- When Scopus returns fewer documents than were requested, `retrieveAbstracts()` and
+  `retrieveAuthors()` now throw an `Exception` naming the counts and the ids, instead of failing
+  inside `array_combine()` — a `ValueError` on PHP 8, a `TypeError` on 7.4.
+- `countAuthors()`, `countAffiliations()` and `countEntries()` count their matching getter's
+  result rather than the raw payload, so the two cannot disagree on a malformed response.
+
+### Added
+- `CitationCount::isFound()` — the boolean question `getStatus()` used to answer incorrectly.
+
+### Fixed
+- Bulk requests whose id count leaves a remainder of one — 26 ids, 51, 76 — crashed. The final
+  chunk holds a single id, which Scopus answers with a single-document response rather than a
+  list, so `array_combine()` received an object. This depended only on how many ids were passed,
+  not on the data.
+- `retrieveAbstracts()` and `retrieveAuthors()` promise a result keyed by id, but the chunked path
+  used `array_merge()`, which renumbers integer keys: `retrieveAbstracts([1, 2, 3])` came back
+  keyed `0, 1, 2`. String ids were unaffected, which is why it went unnoticed.
+- `retrieveAbstracts()` and `retrieveAuthors()` return `[]` for an empty id list instead of
+  reaching an undefined index.
+- `retrieveAuthors()` deduplicated ids to choose its branch but then chunked the original list,
+  so duplicate ids reached `array_combine()` with mismatched counts and raised a `ValueError`.
+
+### Upgrading
+
+```php
+// Collections
+if ($results->getEntries() === null) {}   // before
+if (!$results->getEntries()) {}           // after
+
+// Citation status
+$count->getStatus() === true              // before - true for NOT_FOUND too
+$count->isFound()                         // after
+
+// Bulk retrieval no longer hides failures
+try {
+    $api->retrieveAbstracts($ids);
+} catch (\Exception $e) {
+    // previously returned [] and told you nothing
+}
+```
+
+
 ## [1.5.0] - 2026-09-02
 
 ### Added

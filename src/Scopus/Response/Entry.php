@@ -31,7 +31,7 @@ class Entry extends AbstractCoredata implements IAbstract
             return null;
         }
 
-        return $this->links ?: $this->links = new EntryLinks($this->data['link']);
+        return $this->links ?? $this->links = new EntryLinks($this->data['link']);
     }
 
 
@@ -61,20 +61,20 @@ class Entry extends AbstractCoredata implements IAbstract
         return isset($this->data['prism:coverDisplayDate']) ? $this->data['prism:coverDisplayDate'] : null;
     }
 
-    public function getAffiliations()
+    public function getAffiliations(): array
     {
         if (isset($this->data['affiliation'])) {
-            return $this->affiliations ?: $this->affiliations = array_map(function ($affiliation) {
+            return $this->affiliations ?? $this->affiliations = array_map(function ($affiliation) {
                 return new Affiliation($affiliation);
             }, $this->data['affiliation']);
         }
 
-        return null;
+        return [];
     }
 
     public function countAffiliations()
     {
-        return isset($this->data['affiliation']) ? count($this->data['affiliation']) : 0;
+        return count($this->getAffiliations());
     }
 
     public function getSubtype()
@@ -88,38 +88,34 @@ class Entry extends AbstractCoredata implements IAbstract
     }
 
     /**
-     * @return EntryAuthor[]|null
+     * @return EntryAuthor[]
      */
-    public function getAuthors()
+    public function getAuthors(): array
     {
         if (isset($this->data['author'])) {
-            return $this->authors ?: $this->authors = array_map(function ($author) {
+            return $this->authors ?? $this->authors = array_map(function ($author) {
                 return new EntryAuthor($author);
             }, $this->data['author']);
         }
 
-        return null;
+        return [];
     }
 
     /**
      * @return EntryAuthor[]
      */
-    public function getCoAuthor()
+    public function getCoAuthor(): array
     {
-        if (!$this->getAuthors()) return null;
         $matches = array_filter($this->getAuthors(), function (EntryAuthor $author) {
             return $author->getName() !== $this->getCreator();
         });
-        if ($matches) {
-            return array_values($matches);
-        }
 
-        return null;
+        return array_values($matches);
     }
 
     public function countAuthors()
     {
-        return isset($this->data['author']) ? count($this->data['author']) : 0;
+        return count($this->getAuthors());
     }
 
     public function getAuthkeywords()
@@ -144,7 +140,7 @@ class Entry extends AbstractCoredata implements IAbstract
             return null;
         }
 
-        return $this->preferredName ?: $this->preferredName = new AuthorName($this->data['preferred-name']);
+        return $this->preferredName ?? $this->preferredName = new AuthorName($this->data['preferred-name']);
     }
 
     public function getAffiliation()

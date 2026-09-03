@@ -29,17 +29,17 @@ class CiteInfo extends AbstractCoredata implements IAbstract
     //title is in AbstractCoredata
 
     /**
-     * @return EntryAuthor[]|null
+     * @return EntryAuthor[]
      */
-    public function getAuthors()
+    public function getAuthors(): array
     {
         if (isset($this->data['author'])) {
-            return $this->authors ?: $this->authors = array_map(function ($author) {
+            return $this->authors ?? $this->authors = array_map(function ($author) {
                 return new EntryAuthor($author);
             }, $this->data['author']);
         }
 
-        return null;
+        return [];
     }
 
     public function getCitationType()

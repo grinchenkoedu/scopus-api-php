@@ -27,21 +27,21 @@ class Abstracts implements IAbstract
             return null;
         }
 
-        return $this->coredata ?: $this->coredata = new AbstractCoredata($this->data['coredata']);
+        return $this->coredata ?? $this->coredata = new AbstractCoredata($this->data['coredata']);
     }
 
     /**
      * @return AbstractAuthor[]
      */
-    public function getAuthors()
+    public function getAuthors(): array
     {
         if (isset($this->data['authors']['author'])) {
-            return $this->authors ?: $this->authors = array_map(function($author) {
+            return $this->authors ?? $this->authors = array_map(function($author) {
                 return new AbstractAuthor($author);
             }, $this->data['authors']['author']);
         }
 
-        return null;
+        return [];
     }
 
     /**
@@ -49,7 +49,7 @@ class Abstracts implements IAbstract
      */
     public function countAuthors()
     {
-        return isset($this->data['authors']['author']) ? count($this->data['authors']['author']) : 0;
+        return count($this->getAuthors());
     }
     
     public function getItem()
@@ -58,6 +58,6 @@ class Abstracts implements IAbstract
             return null;
         }
 
-        return $this->item ?: $this->item = new AbstractItem($this->data['item']);
+        return $this->item ?? $this->item = new AbstractItem($this->data['item']);
     }
 }

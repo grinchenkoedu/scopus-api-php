@@ -31,7 +31,7 @@ class AbstractAuthor extends AuthorName implements IAuthor
             return null;
         }
 
-        return $this->preferredName ?: $this->preferredName = new AuthorName($this->data['preferred-name'], 'ce');
+        return $this->preferredName ?? $this->preferredName = new AuthorName($this->data['preferred-name'], 'ce');
     }
 
     public function getUrl()
