@@ -29,6 +29,18 @@ Install the package via Composer:
 composer require grinchenkoedu/scopus-search-api
 ```
 
+## Upgrading
+
+**Coming from 1.x? See [UPGRADING.md](UPGRADING.md).** 2.0 has three breaking changes:
+
+| | Before | After |
+|---|---|---|
+| Collection getters (`getEntries()`, `getAuthors()`, …) | `null` when absent | `[]` |
+| `CitationCount::getStatus()` | `bool` — `true` for any status | the status string, or `null` — use `isFound()` |
+| `retrieveAbstracts()` / `retrieveAuthors()` | swallowed failures, returned `[]` | exceptions propagate |
+
+Still on PHP 7.2 or 7.3? Composer will resolve to `1.4.2`, which carries the same bug fixes.
+
 ## Usage
 
 ```php
@@ -105,7 +117,7 @@ on Linux. Running it in one place keeps the result reproducible.
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
+See [CHANGELOG.md](CHANGELOG.md) for a list of changes, and [UPGRADING.md](UPGRADING.md) for migration notes between major versions.
 
 ## Contributors
 

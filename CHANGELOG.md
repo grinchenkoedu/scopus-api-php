@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-09-03
+
 ### Changed
 - **Breaking:** the 13 getters that yield collections return `[]` instead of `null` when the field
   is absent, and declare `: array`. An empty Scopus result is routine, so iterating no longer
@@ -45,23 +47,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Upgrading
 
-```php
-// Collections
-if ($results->getEntries() === null) {}   // before
-if (!$results->getEntries()) {}           // after
-
-// Citation status
-$count->getStatus() === true              // before - true for NOT_FOUND too
-$count->isFound()                         // after
-
-// Bulk retrieval no longer hides failures
-try {
-    $api->retrieveAbstracts($ids);
-} catch (\Exception $e) {
-    // previously returned [] and told you nothing
-}
-```
-
+See [UPGRADING.md](UPGRADING.md) for the full migration guide, with before/after examples
+and grep patterns for finding affected call sites.
 
 ## [1.5.0] - 2026-09-02
 
@@ -143,7 +130,8 @@ Same fixes as 1.5.0, cut before the PHP requirement moved to 7.4.
 ### Changed
 - Updated various classes (`AbstractCitations`, `Source`, etc.) for better compatibility.
 
-[Unreleased]: https://github.com/grinchenkoedu/scopus-api-php/compare/1.5.0...HEAD
+[Unreleased]: https://github.com/grinchenkoedu/scopus-api-php/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/grinchenkoedu/scopus-api-php/compare/1.5.0...2.0.0
 [1.5.0]: https://github.com/grinchenkoedu/scopus-api-php/compare/1.4.2...1.5.0
 [1.4.2]: https://github.com/grinchenkoedu/scopus-api-php/compare/1.4.1...1.4.2
 [1.4.1]: https://github.com/grinchenkoedu/scopus-api-php/compare/1.4.0...1.4.1
